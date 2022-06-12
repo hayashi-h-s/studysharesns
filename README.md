@@ -1,16 +1,11 @@
-# studysharesns
+# エンジニア学習シェアSNS
 
-studysharesns
+## 対応バージョン
 
-## Getting Started
+未定
 
-This project is a starting point for a Flutter application.
+## 開発環境
 
-A few resources to get you started if this is your first Flutter project:
+Flutter
+Firebase
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
