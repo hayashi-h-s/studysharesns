@@ -94,13 +94,6 @@ class _PostIndexPageState extends State<PostIndexPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const PostPage()));
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
