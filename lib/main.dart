@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studysharesns/view/posts/posts.dart';
+import 'package:studysharesns/view/post/posts_page.dart';
 
 void main() {
   runApp(const MyApp());
