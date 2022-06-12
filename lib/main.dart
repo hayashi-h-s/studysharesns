@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studysharesns/view/post/posts_page.dart';
+import 'package:studysharesns/view/post/posts_index_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-     home: const PostsPage()
+     home: const PostIndexPage()
     );
   }
 }

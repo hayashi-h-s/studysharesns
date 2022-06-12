@@ -5,14 +5,14 @@ import 'package:intl/intl.dart';
 import '../../model/post.dart';
 
 
-class PostsPage extends StatefulWidget {
-  const PostsPage({Key? key}) : super(key: key);
+class PostIndexPage extends StatefulWidget {
+  const PostIndexPage({Key? key}) : super(key: key);
 
   @override
-  _PostsPageState createState() => _PostsPageState();
+  _PostIndexPageState createState() => _PostIndexPageState();
 }
 
-class _PostsPageState extends State<PostsPage> {
+class _PostIndexPageState extends State<PostIndexPage> {
   Account myAccount = Account(
       id: "1",
       name: "Haya",
