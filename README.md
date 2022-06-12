@@ -6,6 +6,6 @@
 
 ## 開発環境
 
-Flutter
+Flutter  
 Firebase
 
