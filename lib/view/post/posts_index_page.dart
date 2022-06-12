@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:studysharesns/model/account.dart';
 import 'package:intl/intl.dart';
+import 'package:studysharesns/view/post/post_page.dart';
 
 import '../../model/post.dart';
-
 
 class PostIndexPage extends StatefulWidget {
   const PostIndexPage({Key? key}) : super(key: key);
@@ -93,6 +93,13 @@ class _PostIndexPageState extends State<PostIndexPage> {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PostPage()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
