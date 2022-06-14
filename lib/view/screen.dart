@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studysharesns/view/post/post_page.dart';
 import 'package:studysharesns/view/post/posts_index_page.dart';
 
+import 'account/account_page.dart';
+
 class Screen extends StatefulWidget {
   const Screen({Key? key}) : super(key: key);
 
@@ -11,7 +13,7 @@ class Screen extends StatefulWidget {
 
 class _ScreenState extends State<Screen> {
   int selectedIndex = 0;
-  List<Widget> pageList = [const PostIndexPage(), const PostPage()];
+  List<Widget> pageList = [const PostIndexPage(), const AccountPage()];
 
   @override
   Widget build(BuildContext context) {
