@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "368693679116",
+    "project_id": "flutterstudyapp-2cd7d",
+    "storage_bucket": "flutterstudyapp-2cd7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368693679116:android:2eb57f9d58abfd40a24a29",
+        "android_client_info": {
+          "package_name": "com.haya.studysharesns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368693679116-l0b9cm5q97ijqqr9i39e0tm2hts48vbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0tIjaUWhjOSMcTnLbhDzcPnw9J41CzoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368693679116-l0b9cm5q97ijqqr9i39e0tm2hts48vbg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "368693679116-i24jtdfl8puur89spj6r9p3ks5am6jvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.haya.flutter-study-app19930917"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
