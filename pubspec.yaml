@@ -35,6 +35,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   intl: any
+  #region Firebase
+  firebase_core: ^1.17.1
+  #region end
+
 
 dev_dependencies:
   flutter_test:
