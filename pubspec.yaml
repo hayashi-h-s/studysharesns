@@ -37,6 +37,7 @@ dependencies:
   intl: any
   #region Firebase
   firebase_core: ^1.17.1
+  firebase_auth: ^3.3.19
   #region end
 
 

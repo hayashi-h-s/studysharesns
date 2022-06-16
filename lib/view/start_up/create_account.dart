@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../utils/Authentication.dart';
 import '../screen.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -16,6 +17,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController selfIntroductionController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
+
+  void onButtonTapped() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +95,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 30,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (nameController.text.isNotEmpty &&
                         userIdController.text.isNotEmpty &&
                         selfIntroductionController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
                         passController.text.isNotEmpty) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => const Screen()));
+                      var result =  await Authentication.signUp(email: emailController.text, pass: passController.text);
+                      if (result == true) {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => const Screen()));
+                      }
                     }
                   },
                   child: const Text("アカウント作成"),
