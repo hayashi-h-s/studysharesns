@@ -17,14 +17,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController selfIntroductionController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
-  void onButtonTapped() async {
-    await Future.delayed(const Duration(seconds: 1));
-
-    if (!mounted) return;
-    Navigator.of(context).pop();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
