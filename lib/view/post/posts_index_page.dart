@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studysharesns/model/account.dart';
 import 'package:intl/intl.dart';
@@ -20,8 +21,8 @@ class _PostIndexPageState extends State<PostIndexPage> {
       userId: "engineer",
       imagePath:
           "https://www.pakutaso.com/shared/img/thumb/ADIMGL6720_TP_V.jpg",
-      createdTime: DateTime.now(),
-      updatedTime: DateTime.now());
+      createdTime: Timestamp.now(),
+      updatedTime: Timestamp.now());
   List<Post> postList = [
     Post(
       id: "1",
@@ -84,8 +85,8 @@ class _PostIndexPageState extends State<PostIndexPage> {
                                   children: [
                                     Text(myAccount.name),
                                     Text("@${myAccount.userId}",
-                                        style:
-                                            const TextStyle(color: Colors.grey)),
+                                        style: const TextStyle(
+                                            color: Colors.grey)),
                                   ],
                                 ),
                                 Text(DateFormat("M/d/yy")

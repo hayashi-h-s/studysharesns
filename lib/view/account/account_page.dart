@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,14 +14,14 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   Account myAccount = Account(
-      id: "1",
-      name: "Haya",
-      selfIntroduction: "Hayaです。",
-      userId: "engineer",
-      imagePath:
-          "https://www.pakutaso.com/shared/img/thumb/ADIMGL6720_TP_V.jpg",
-      createdTime: DateTime.now(),
-      updatedTime: DateTime.now());
+    id: "1",
+    name: "Haya",
+    selfIntroduction: "Hayaです。",
+    userId: "engineer",
+    imagePath: "https://www.pakutaso.com/shared/img/thumb/ADIMGL6720_TP_V.jpg",
+    createdTime: Timestamp.now(),
+    updatedTime: Timestamp.now(),
+  );
   List<Post> postList = [
     Post(
       id: "1",
@@ -185,63 +186,67 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(children: [
-      Container(
-        height: 200,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child:
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(children: [
+          Container(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
-                          radius: 32,
-                          foregroundImage: NetworkImage(myAccount.imagePath),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 32,
+                              foregroundImage:
+                                  NetworkImage(myAccount.imagePath),
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(myAccount.name,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                  Text("@${myAccount.userId}")
+                                ])
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(myAccount.name,
-                                  style: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold)),
-                              Text("@${myAccount.userId}")
-                            ])
+                        OutlinedButton(
+                            onPressed: () {},
+                            child: const Text("編集",
+                                style: TextStyle(color: Colors.blue)))
                       ],
                     ),
-                    OutlinedButton(
-                        onPressed: () {},
-                        child:
-                            const Text("編集", style: TextStyle(color: Colors.blue)))
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(myAccount.selfIntroduction)
-          ]),
-        ),
-      ),
-      Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          decoration: const BoxDecoration(
+                    const SizedBox(height: 16),
+                    Text(myAccount.selfIntroduction)
+                  ]),
+            ),
+          ),
+          Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              decoration: const BoxDecoration(
                   border: Border(
                       top: BorderSide(color: Colors.grey, width: 0),
                       bottom: BorderSide(color: Colors.indigo, width: 3))),
-          child: const Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(2.0),
                 child: Text("投稿",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          )),
-      Expanded(
-        child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: postList.length,
-          itemBuilder: (context, index) {
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              )),
+          Expanded(
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: postList.length,
+              itemBuilder: (context, index) {
                 return Container(
                   decoration: BoxDecoration(
                       border: index == 0
@@ -265,7 +270,8 @@ class _AccountPageState extends State<AccountPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
@@ -286,11 +292,11 @@ class _AccountPageState extends State<AccountPage> {
                     ],
                   ),
                 );
-          },
-        ),
+              },
+            ),
+          ),
+        ]),
       ),
-    ]),
-              ),
-            )));
+    )));
   }
 }

@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studysharesns/utils/firestore/users_firestore.dart';
+import '../../model/account.dart';
 import '../../utils/Authentication.dart';
 import '../screen.dart';
 
@@ -34,7 +36,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
-  Future<void> uploadImage(String uid) async {
+  Future<dynamic> uploadImage(String uid) async {
     final FirebaseStorage storageInstance = FirebaseStorage.instance;
     final Reference ref = storageInstance.ref();
     try {
@@ -43,10 +45,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       if (kDebugMode) {
         print("画像登録成功 = $downloadUrl");
       }
+      return downloadUrl;
     } on FirebaseException catch (e) {
       if (kDebugMode) {
         print("画像登録失敗 =  ${e}");
       }
+      return false;
     }
   }
 
@@ -135,13 +139,23 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           email: emailController.text,
                           pass: passController.text);
                       if (result is UserCredential) {
-                        await uploadImage(result.user!.uid);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Screen(),
-                          ),
+                        var downloadUrl = await uploadImage(result.user!.uid);
+                        Account newAccount = Account(
+                          id: result.user!.uid,
+                          userId: userIdController.text,
+                          name: nameController.text,
+                          imagePath: downloadUrl,
+                          selfIntroduction: selfIntroductionController.text,
                         );
+                        var setUserResult = await UsersFireStore.setUser(newAccount);
+                        if (setUserResult ==  true) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Screen(),
+                            ),
+                          );
+                        }
                       }
                     }
                   },
