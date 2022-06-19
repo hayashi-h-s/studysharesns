@@ -20,14 +20,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
-  String? imagePath;
+  File? fileImage;
   ImagePicker picker = ImagePicker();
 
   Future<void> getImageFromGallery() async {
-    XFile? file = await picker.pickImage(source: ImageSource.gallery);
-    if (file != null) {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        imagePath = file.path;
+        fileImage = File(pickedFile.path);
       });
     }
   }
@@ -56,7 +56,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: CircleAvatar(
                     radius: 40,
                     foregroundImage:
-                        imagePath == null ? null : FileImage(File(imagePath!)),
+                    fileImage == null ? null : FileImage(fileImage!),
                     child: const  Icon(Icons.add),
                   ),
                 ),
