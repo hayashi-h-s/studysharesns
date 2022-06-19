@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../model/account.dart';
 
@@ -17,10 +18,14 @@ class UsersFireStore {
         "created_time": Timestamp.now(),
         "updated_time": Timestamp.now(),
       });
-      print("【FlutterLog】新規ユーザー作成完了");
+      if (kDebugMode) {
+        print("【FlutterLog】新規ユーザー作成完了");
+      }
       return true;
     } on FirebaseException catch (e) {
-      print("【FlutterLog】新規ユーザー作成エラー：$e");
+      if (kDebugMode) {
+        print("【FlutterLog】新規ユーザー作成エラー：$e");
+      }
       return false;
     }
   }
