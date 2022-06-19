@@ -39,6 +39,7 @@ dependencies:
   #region Firebase
   firebase_core: ^1.17.1
   firebase_auth: ^3.3.19
+  firebase_storage: ^10.2.18
   #region end
 
 

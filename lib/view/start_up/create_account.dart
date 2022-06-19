@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/Authentication.dart';
 import '../screen.dart';
@@ -32,6 +34,22 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
+  Future<void> uploadImage(String uid) async {
+    final FirebaseStorage storageInstance = FirebaseStorage.instance;
+    final Reference ref = storageInstance.ref();
+    try {
+      await ref.child(uid).putFile(fileImage!);
+      String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
+      if (kDebugMode) {
+        print("画像登録成功 = $downloadUrl");
+      }
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print("画像登録失敗 =  ${e}");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +74,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: CircleAvatar(
                     radius: 40,
                     foregroundImage:
-                    fileImage == null ? null : FileImage(fileImage!),
-                    child: const  Icon(Icons.add),
+                        fileImage == null ? null : FileImage(fileImage!),
+                    child: const Icon(Icons.add),
                   ),
                 ),
                 SizedBox(
@@ -116,11 +134,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       var result = await Authentication.signUp(
                           email: emailController.text,
                           pass: passController.text);
-                      if (result == true) {
+                      if (result is UserCredential) {
+                        await uploadImage(result.user!.uid);
                         Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Screen()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Screen(),
+                          ),
+                        );
                       }
                     }
                   },

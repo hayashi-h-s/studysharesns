@@ -6,15 +6,15 @@ class Authentication {
 
   static User? currentFirebaseUser;
 
-  static Future<bool> signUp(
+  static Future<dynamic> signUp(
       {required String email, required String pass}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential uewAccount = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: pass);
       if (kDebugMode) {
         print("Auth登録完了");
       }
-      return true;
+      return uewAccount;
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print("Auth登録エラー -> $e");

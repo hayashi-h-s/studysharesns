@@ -37,19 +37,25 @@ class _PostIndexPageState extends State<PostIndexPage> {
     )
   ];
 
+  Future<bool> _willPopCallback() async {
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("投稿一覧"),
-        backgroundColor: Colors.indigo,
-      ),
-      body: ListView.builder(
-        itemCount: postList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            title: const Text("投稿一覧"),
+            backgroundColor: Colors.indigo,
+            automaticallyImplyLeading: false),
+        body: ListView.builder(
+          itemCount: postList.length,
+          itemBuilder: (context, index) {
+            return Container(
+              decoration: BoxDecoration(
                 border: index == 0
                     ? const Border(
                         top: BorderSide(color: Colors.grey, width: 0),
@@ -57,42 +63,44 @@ class _PostIndexPageState extends State<PostIndexPage> {
                       )
                     : const Border(
                         bottom: BorderSide(color: Colors.grey, width: 0),
-                      )),
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                CircleAvatar(
-                    radius: 22,
-                    foregroundImage: NetworkImage(myAccount.imagePath)),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(myAccount.name),
-                                  Text("@${myAccount.userId}",
-                                      style:
-                                          const TextStyle(color: Colors.grey)),
-                                ],
-                              ),
-                              Text(DateFormat("M/d/yy")
-                                  .format(postList[index].createdTime!)),
-                            ]),
-                        Text(postList[index].content),
-                      ],
+                      ),
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                      radius: 22,
+                      foregroundImage: NetworkImage(myAccount.imagePath)),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(myAccount.name),
+                                    Text("@${myAccount.userId}",
+                                        style:
+                                            const TextStyle(color: Colors.grey)),
+                                  ],
+                                ),
+                                Text(DateFormat("M/d/yy")
+                                    .format(postList[index].createdTime!)),
+                              ]),
+                          Text(postList[index].content),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
