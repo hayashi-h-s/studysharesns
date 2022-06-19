@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:studysharesns/utils/Authentication.dart';
+import 'package:studysharesns/utils/firestore/users_firestore.dart';
 import 'package:studysharesns/view/screen.dart';
 
 import 'create_account.dart';
@@ -75,13 +77,16 @@ class _LoginPageState extends State<LoginPage> {
                       passController.text.isNotEmpty) {
                     final result = await Authentication.emailSignIn(
                         email: emailController.text, pass: passController.text);
-                    if (result) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Screen(),
-                        ),
-                      );
+                    if (result is UserCredential) {
+                      var getUserResult =  await UsersFireStore.getUser(result.user!.uid);
+                      if (getUserResult ==  true) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Screen(),
+                          ),
+                        );
+                      }
                     }
                   }
                 },

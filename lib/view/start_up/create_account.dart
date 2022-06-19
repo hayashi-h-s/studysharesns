@@ -134,7 +134,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         userIdController.text.isNotEmpty &&
                         selfIntroductionController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
-                        passController.text.isNotEmpty) {
+                        passController.text.isNotEmpty &&
+                        fileImage == null) {
                       var result = await Authentication.signUp(
                           email: emailController.text,
                           pass: passController.text);
@@ -147,14 +148,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           imagePath: downloadUrl,
                           selfIntroduction: selfIntroductionController.text,
                         );
-                        var setUserResult = await UsersFireStore.setUser(newAccount);
-                        if (setUserResult ==  true) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Screen(),
-                            ),
-                          );
+                        var setUserResult =
+                            await UsersFireStore.setUser(newAccount);
+                        if (setUserResult == true) {
+                          var getUserResult =
+                              await UsersFireStore.getUser(result.user!.uid);
+                          if (getUserResult == true) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Screen(),
+                              ),
+                            );
+                          }
                         }
                       }
                     }

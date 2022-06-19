@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/account.dart';
+
 class Authentication {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   static User? currentFirebaseUser;
+  static Account? myAccount;
 
   static Future<dynamic> signUp(
       {required String email, required String pass}) async {
@@ -23,7 +25,7 @@ class Authentication {
     }
   }
 
-  static Future<bool> emailSignIn(
+  static Future<dynamic> emailSignIn(
       {required String email, required String pass}) async {
     try {
       final result = await _firebaseAuth.signInWithEmailAndPassword(
@@ -32,7 +34,7 @@ class Authentication {
       if (kDebugMode) {
         print("Authログイン完了");
       }
-      return true;
+      return result;
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print("Authログインエラー -> $e");
