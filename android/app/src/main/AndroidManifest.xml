@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.haya.studysharesns">
+
+    <uses-permission android:name="android.permission.CAMERAInfo"/>
+
    <application
         android:label="studysharesns"
         android:name="${applicationName}"

@@ -1,6 +1,8 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../utils/Authentication.dart';
 import '../screen.dart';
 
@@ -17,7 +19,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController selfIntroductionController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  
+
+  String? imagePath;
+  ImagePicker picker = ImagePicker();
+
+  Future<void> getImageFromGallery() async {
+    XFile? file = await picker.pickImage(source: ImageSource.gallery);
+    if (file != null) {
+      setState(() {
+        imagePath = file.path;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +51,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             child: Column(
               children: [
                 const SizedBox(height: 30),
-                const CircleAvatar(
-                  radius: 40,
-                  child: Icon(Icons.add),
+                GestureDetector(
+                  onTap: getImageFromGallery,
+                  child: CircleAvatar(
+                    radius: 40,
+                    foregroundImage:
+                        imagePath == null ? null : FileImage(File(imagePath!)),
+                    child: const  Icon(Icons.add),
+                  ),
                 ),
                 SizedBox(
                   width: 300,
@@ -94,10 +113,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         selfIntroductionController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
                         passController.text.isNotEmpty) {
-                      var result =  await Authentication.signUp(email: emailController.text, pass: passController.text);
+                      var result = await Authentication.signUp(
+                          email: emailController.text,
+                          pass: passController.text);
                       if (result == true) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => const Screen()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Screen()));
                       }
                     }
                   },
