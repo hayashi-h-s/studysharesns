@@ -5,9 +5,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studysharesns/utils/firestore/users_firestore.dart';
+import 'package:studysharesns/utils/firestore/user_firestore.dart';
 import '../../model/account.dart';
 import '../../utils/Authentication.dart';
+import '../../utils/function_utils.dart';
 import '../screen.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -26,33 +27,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   File? fileImage;
   ImagePicker picker = ImagePicker();
-
-  Future<void> getImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        fileImage = File(pickedFile.path);
-      });
-    }
-  }
-
-  Future<dynamic> uploadImage(String uid) async {
-    final FirebaseStorage storageInstance = FirebaseStorage.instance;
-    final Reference ref = storageInstance.ref();
-    try {
-      await ref.child(uid).putFile(fileImage!);
-      String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
-      if (kDebugMode) {
-        print("画像登録成功 = $downloadUrl");
-      }
-      return downloadUrl;
-    } on FirebaseException catch (e) {
-      if (kDebugMode) {
-        print("画像登録失敗 =  ${e}");
-      }
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +48,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               children: [
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: getImageFromGallery,
+                  onTap: () async {
+                    var pickedFile = await FunctionUtils.getImageFromGallery();
+                    if (pickedFile !=  null) {
+                      setState(() {
+                        fileImage =  File(pickedFile.path);
+                      });
+                    }
+                  },
                   child: CircleAvatar(
                     radius: 40,
                     foregroundImage:
@@ -140,7 +121,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           email: emailController.text,
                           pass: passController.text);
                       if (result is UserCredential) {
-                        var downloadUrl = await uploadImage(result.user!.uid);
+                        var downloadUrl = await FunctionUtils.uploadImage(
+                            result.user!.uid, fileImage!);
                         Account newAccount = Account(
                           id: result.user!.uid,
                           userId: userIdController.text,
@@ -149,10 +131,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           selfIntroduction: selfIntroductionController.text,
                         );
                         var setUserResult =
-                            await UsersFireStore.setUser(newAccount);
+                            await UserFireStore.setUser(newAccount);
                         if (setUserResult == true) {
                           var getUserResult =
-                              await UsersFireStore.getUser(result.user!.uid);
+                              await UserFireStore.getUser(result.user!.uid);
                           if (getUserResult == true) {
                             Navigator.pushReplacement(
                               context,

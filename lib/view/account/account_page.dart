@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:studysharesns/utils/Authentication.dart';
+import 'package:studysharesns/view/account/edit_account_page.dart';
 
 import '../../model/account.dart';
 import '../../model/post.dart';
@@ -179,10 +180,10 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(children: [
-          Container(
+          SizedBox(
             height: 200,
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -212,7 +213,19 @@ class _AccountPageState extends State<AccountPage> {
                           ],
                         ),
                         OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              var result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const EditAccountPage(),
+                                  ));
+                              if (result == true) {
+                                setState(() {
+                                  myAccount = Authentication.myAccount!;
+                                });
+                              }
+                            },
                             child: const Text("編集",
                                 style: TextStyle(color: Colors.blue)))
                       ],

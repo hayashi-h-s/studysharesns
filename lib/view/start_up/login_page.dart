@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:studysharesns/utils/Authentication.dart';
-import 'package:studysharesns/utils/firestore/users_firestore.dart';
+import 'package:studysharesns/utils/firestore/user_firestore.dart';
 import 'package:studysharesns/view/screen.dart';
 
 import 'create_account.dart';
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     final result = await Authentication.emailSignIn(
                         email: emailController.text, pass: passController.text);
                     if (result is UserCredential) {
-                      var getUserResult =  await UsersFireStore.getUser(result.user!.uid);
+                      var getUserResult =  await UserFireStore.getUser(result.user!.uid);
                       if (getUserResult ==  true) {
                         Navigator.pushReplacement(
                           context,
@@ -90,7 +90,16 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   }
                 },
-                child: const Text("emailログイン"))
+                child: const Text("emailログイン")),
+            ElevatedButton(onPressed: () async {
+              var getUserResult =  await UserFireStore.getUser("5b8VPiOuVRhKhYpiehJVNA6taxr1");
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Screen(),
+                ),
+              );
+            }, child: const Text("テストボタン"),)
           ],
         ),
       )),

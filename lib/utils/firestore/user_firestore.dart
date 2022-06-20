@@ -4,7 +4,7 @@ import 'package:studysharesns/utils/Authentication.dart';
 
 import '../../model/account.dart';
 
-class UsersFireStore {
+class UserFireStore {
   static final _firesStoreInstance = FirebaseFirestore.instance;
   static final CollectionReference users =
       _firesStoreInstance.collection("users");
@@ -52,6 +52,27 @@ class UsersFireStore {
     } on FirebaseException catch (e) {
       if (kDebugMode) {
         print("【FlutterLog】新規ユーザー取得エラー：$e");
+      }
+      return false;
+    }
+  }
+
+  static Future<bool> updateUser(Account updateAccount) async {
+    try {
+      await users.doc(updateAccount.id).update({
+        "name": updateAccount.name,
+        "user_id": updateAccount.userId,
+        "self_introduction": updateAccount.selfIntroduction,
+        "image_path": updateAccount.imagePath,
+        "updated_time": Timestamp.now(),
+      });
+      if (kDebugMode) {
+        print("【FlutterLog】ユーザー情報更新完了");
+      }
+      return true;
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print("【FlutterLog】新規ユーザー情報更新エラー：$e");
       }
       return false;
     }
