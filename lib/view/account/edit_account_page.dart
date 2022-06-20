@@ -108,9 +108,6 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       } else {
                         imagePath = myAccount!.imagePath;
                       }
-
-                      print("【FlutterLog】${imagePath}");
-
                       Account updateAccount = Account(
                         id: myAccount!.id,
                         userId: userIdController.text,
