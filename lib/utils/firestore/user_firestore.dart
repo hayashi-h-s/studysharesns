@@ -7,7 +7,7 @@ import '../../model/account.dart';
 class UserFireStore {
   static final _firesStoreInstance = FirebaseFirestore.instance;
   static final CollectionReference users =
-      _firesStoreInstance.collection("users");
+  _firesStoreInstance.collection("users");
 
   static Future<bool> setUser(Account newAccount) async {
     try {
@@ -33,18 +33,19 @@ class UserFireStore {
 
   static Future<bool> getUser(String uid) async {
     try {
-      DocumentSnapshot documentSnapshot =  await users.doc(uid).get();
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String,dynamic>;
+      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String,
+          dynamic>;
       Account myAccount = Account(
-        id:uid,
+        id: uid,
         userId: data["user_id"],
         name: data["name"],
-        imagePath:data["image_path"],
+        imagePath: data["image_path"],
         selfIntroduction: data["self_introduction"],
         createdTime: data["created_time"],
         updatedTime: data["updated_time"],
       );
-      Authentication.myAccount =  myAccount;
+      Authentication.myAccount = myAccount;
       if (kDebugMode) {
         print("【FlutterLog】新規ユーザー取得完了");
       }
@@ -75,6 +76,37 @@ class UserFireStore {
         print("【FlutterLog】新規ユーザー情報更新エラー：$e");
       }
       return false;
+    }
+  }
+
+  static Future<Map<String, Account>?> getPostUserMap(
+      List<String> accountIds) async {
+    Map<String, Account>map = {};
+    try {
+      await Future.forEach(accountIds, (String accountId) async {
+        var doc = await users.doc(accountId).get();
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        Account postAccount = Account(
+          id: accountId,
+          userId: data["user_id"],
+          name: data["name"],
+          imagePath: data["image_path"],
+          selfIntroduction: data["self_introduction"],
+          createdTime: data["created_time"],
+          updatedTime: data["updated_time"],
+        );
+        map[accountId] = postAccount;
+      });
+
+      if (kDebugMode) {
+        print("【FlutterLog】投稿ユーザー情報取得完了");
+      }
+      return map;
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print("【FlutterLog】投稿ユーザー情報取得エラー：$e");
+      }
+      return null;
     }
   }
 }
