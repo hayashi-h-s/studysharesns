@@ -28,13 +28,13 @@ class _PostIndexPageState extends State<PostIndexPage> {
       id: "1",
       content: "こんにちは",
       postAccountId: "1",
-      createdTime: DateTime.now(),
+      createdTime: Timestamp.now(),
     ),
     Post(
       id: "2",
       content: "よろしくお願いします。",
       postAccountId: "1",
-      createdTime: DateTime.now(),
+      createdTime: Timestamp.now(),
     )
   ];
 
@@ -90,7 +90,7 @@ class _PostIndexPageState extends State<PostIndexPage> {
                                   ],
                                 ),
                                 Text(DateFormat("M/d/yy")
-                                    .format(postList[index].createdTime!)),
+                                    .format(postList[index].createdTime!.toDate())),
                               ]),
                           Text(postList[index].content),
                         ],
