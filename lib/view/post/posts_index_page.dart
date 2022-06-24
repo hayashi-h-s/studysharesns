@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:studysharesns/model/account.dart';
 import 'package:intl/intl.dart';
-import 'package:studysharesns/view/post/post_page.dart';
+import 'package:studysharesns/model/account.dart';
+import 'package:studysharesns/utils/firestore/post_firestore.dart';
+import 'package:studysharesns/utils/firestore/user_firestore.dart';
 
 import '../../model/post.dart';
 
@@ -14,30 +15,6 @@ class PostIndexPage extends StatefulWidget {
 }
 
 class _PostIndexPageState extends State<PostIndexPage> {
-  Account myAccount = Account(
-      id: "1",
-      name: "Haya",
-      selfIntroduction: "Hayaです。",
-      userId: "engineer",
-      imagePath:
-          "https://www.pakutaso.com/shared/img/thumb/ADIMGL6720_TP_V.jpg",
-      createdTime: Timestamp.now(),
-      updatedTime: Timestamp.now());
-  List<Post> postList = [
-    Post(
-      id: "1",
-      content: "こんにちは",
-      postAccountId: "1",
-      createdTime: Timestamp.now(),
-    ),
-    Post(
-      id: "2",
-      content: "よろしくお願いします。",
-      postAccountId: "1",
-      createdTime: Timestamp.now(),
-    )
-  ];
-
   Future<bool> _willPopCallback() async {
     return false;
   }
@@ -52,56 +29,105 @@ class _PostIndexPageState extends State<PostIndexPage> {
             title: const Text("投稿一覧"),
             backgroundColor: Colors.indigo,
             automaticallyImplyLeading: false),
-        body: ListView.builder(
-          itemCount: postList.length,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                border: index == 0
-                    ? const Border(
-                        top: BorderSide(color: Colors.grey, width: 0),
-                        bottom: BorderSide(color: Colors.grey, width: 0),
-                      )
-                    : const Border(
-                        bottom: BorderSide(color: Colors.grey, width: 0),
-                      ),
-              ),
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                      radius: 22,
-                      foregroundImage: NetworkImage(myAccount.imagePath)),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(myAccount.name),
-                                    Text("@${myAccount.userId}",
-                                        style: const TextStyle(
-                                            color: Colors.grey)),
-                                  ],
-                                ),
-                                Text(DateFormat("M/d/yy")
-                                    .format(postList[index].createdTime!.toDate())),
-                              ]),
-                          Text(postList[index].content),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+        body: StreamBuilder<QuerySnapshot>(
+            stream: PostFireStore.posts
+                .orderBy("created_time", descending: true)
+                .snapshots(),
+            builder: (context, postSnapshot) {
+              if (postSnapshot.hasData) {
+                List<String> postAccountIds = [];
+                for (var doc in postSnapshot.data!.docs) {
+                  Map<String, dynamic> data =
+                      doc.data() as Map<String, dynamic>;
+                  if (!postAccountIds.contains(data["post_account_id"])) {
+                    postAccountIds.add(data["post_account_id"]);
+                  }
+                }
+                return FutureBuilder<Map<String, Account>?>(
+                    future: UserFireStore.getPostUserMap(postAccountIds),
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.hasData &&
+                          userSnapshot.connectionState ==
+                              ConnectionState.done) {
+                        return ListView.builder(
+                          itemCount: postSnapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> data =
+                                postSnapshot.data!.docs[index].data()
+                                    as Map<String, dynamic>;
+                            Post post = Post(
+                              id: postSnapshot.data!.docs[index].id,
+                              content: data["content"],
+                              postAccountId: data["post_account_id"],
+                              createdTime: data["created_time"],
+                            );
+                            Account postAccount =
+                                userSnapshot.data![post.postAccountId]!;
+                            return Container(
+                              decoration: BoxDecoration(
+                                border: index == 0
+                                    ? const Border(
+                                        top: BorderSide(
+                                            color: Colors.grey, width: 0),
+                                        bottom: BorderSide(
+                                            color: Colors.grey, width: 0),
+                                      )
+                                    : const Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey, width: 0),
+                                      ),
+                              ),
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                      radius: 22,
+                                      foregroundImage:
+                                          NetworkImage(postAccount.imagePath)),
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(postAccount.name),
+                                                    Text(
+                                                        "@${postAccount.userId}",
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.grey)),
+                                                  ],
+                                                ),
+                                                Text(DateFormat("M/d/yy")
+                                                    .format(post.createdTime!
+                                                        .toDate())),
+                                              ]),
+                                          Text(post.content),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    });
+              } else {
+                return Container();
+              }
+            }),
       ),
     );
   }
