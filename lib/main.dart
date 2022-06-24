@@ -6,7 +6,6 @@ import 'package:studysharesns/view/start_up/login_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // runApp(const MyApp());
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -21,6 +20,5 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.indigo,
         ),
         home: const LoginPage());
-    // home: const ItemListPage());
   }
 }
