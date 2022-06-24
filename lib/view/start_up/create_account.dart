@@ -50,9 +50,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 GestureDetector(
                   onTap: () async {
                     var pickedFile = await FunctionUtils.getImageFromGallery();
-                    if (pickedFile !=  null) {
+                    if (pickedFile != null) {
                       setState(() {
-                        fileImage =  File(pickedFile.path);
+                        fileImage = File(pickedFile.path);
                       });
                     }
                   },
@@ -116,7 +116,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         selfIntroductionController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
                         passController.text.isNotEmpty &&
-                        fileImage == null) {
+                        fileImage != null) {
                       var result = await Authentication.signUp(
                           email: emailController.text,
                           pass: passController.text);
