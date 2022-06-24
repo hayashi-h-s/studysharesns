@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
+import 'package:studysharesns/view/start_up/login_page.dart';
 
 import '../../model/account.dart';
 import '../../utils/function_utils.dart';
@@ -124,6 +124,20 @@ class _EditAccountPageState extends State<EditAccountPage> {
                     }
                   },
                   child: const Text("更新"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Authentication.signOut();
+                    while (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ));
+                  },
+                  child: const Text("ログアウト"),
                 )
               ],
             ),

@@ -11,8 +11,8 @@ class Authentication {
   static Future<dynamic> signUp(
       {required String email, required String pass}) async {
     try {
-      UserCredential uewAccount = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: pass);
+      UserCredential uewAccount = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: pass);
       if (kDebugMode) {
         print("Auth登録完了");
       }
@@ -41,5 +41,9 @@ class Authentication {
       }
       return false;
     }
+  }
+
+  static Future<void> signOut() async {
+    _firebaseAuth.signOut();
   }
 }
