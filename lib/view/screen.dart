@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studysharesns/materials/view/item_list_page.dart';
 import 'package:studysharesns/view/post/post_page.dart';
 import 'package:studysharesns/view/post/posts_index_page.dart';
 
@@ -13,7 +14,11 @@ class Screen extends StatefulWidget {
 
 class _ScreenState extends State<Screen> {
   int selectedIndex = 0;
-  List<Widget> pageList = [const PostIndexPage(), const AccountPage()];
+  List<Widget> pageList = [
+    const PostIndexPage(),
+    const ItemListPage(),
+    const AccountPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +27,16 @@ class _ScreenState extends State<Screen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "投稿"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "その他")
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            label: "TODO",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "その他"),
         ],
         currentIndex: selectedIndex,
         onTap: (index) {
           setState(() {
-            selectedIndex =  index;
+            selectedIndex = index;
           });
         },
       ),

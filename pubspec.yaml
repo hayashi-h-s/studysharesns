@@ -36,13 +36,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: any
   image_picker: ^0.8.5
+  build_runner: ^2.1.11
+  flutter_hooks: ^0.18.4
+  freezed: ^2.0.3+1
+  freezed_annotation: ^2.0.3
+  hooks_riverpod: ^1.0.4
+  json_serializable: ^6.2.0
+
   #region Firebase
   firebase_core: ^1.17.1
   firebase_auth: ^3.3.19
   firebase_storage: ^10.2.18
   cloud_firestore: ^3.1.18
   #region end
-
 
 dev_dependencies:
   flutter_test:
