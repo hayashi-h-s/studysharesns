@@ -50,8 +50,21 @@ class _PostIndexPageState extends State<PostIndexPage> {
                           userSnapshot.connectionState ==
                               ConnectionState.done) {
                         return ListView.builder(
-                          itemCount: postSnapshot.data!.docs.length,
+                          itemCount: postSnapshot.data!.docs.length + 1,
                           itemBuilder: (context, index) {
+                            if (index == postSnapshot.data!.docs.length) {
+                              return Container(
+                                height: 200,
+                                alignment: Alignment.center,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    "投稿は以上です",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              );
+                            }
                             Map<String, dynamic> data =
                                 postSnapshot.data!.docs[index].data()
                                     as Map<String, dynamic>;
