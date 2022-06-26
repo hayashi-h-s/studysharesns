@@ -8,6 +8,7 @@ part 'account.g.dart';
 
 @freezed
 class Account with _$Account {
+  const Account._();
   const factory Account({
     String? id,
     required String userId,
@@ -36,4 +37,6 @@ class Account with _$Account {
     );
     return myAccount;
   }
+
+  Map<String, dynamic> toDocument() => toJson()..remove('id');
 }

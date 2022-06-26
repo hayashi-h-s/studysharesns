@@ -170,7 +170,7 @@ class __$$_AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Account implements _Account {
+class _$_Account extends _Account {
   const _$_Account(
       {this.id,
       required this.userId,
@@ -178,7 +178,8 @@ class _$_Account implements _Account {
       required this.imagePath,
       this.selfIntroduction = "",
       @DateTimeTimestampConverter() this.createdTime,
-      @DateTimeTimestampConverter() this.updatedTime});
+      @DateTimeTimestampConverter() this.updatedTime})
+      : super._();
 
   factory _$_Account.fromJson(Map<String, dynamic> json) =>
       _$$_AccountFromJson(json);
@@ -246,7 +247,7 @@ class _$_Account implements _Account {
   }
 }
 
-abstract class _Account implements Account {
+abstract class _Account extends Account {
   const factory _Account(
       {final String? id,
       required final String userId,
@@ -255,6 +256,7 @@ abstract class _Account implements Account {
       final String selfIntroduction,
       @DateTimeTimestampConverter() final DateTime? createdTime,
       @DateTimeTimestampConverter() final DateTime? updatedTime}) = _$_Account;
+  const _Account._() : super._();
 
   factory _Account.fromJson(Map<String, dynamic> json) = _$_Account.fromJson;
 
