@@ -33,19 +33,8 @@ class UserFireStore {
 
   static Future<bool> getUser(String uid) async {
     try {
-      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
-      Map<String, dynamic> data =
-          documentSnapshot.data() as Map<String, dynamic>;
-      Account myAccount = Account(
-        id: uid,
-        userId: data["user_id"],
-        name: data["name"],
-        imagePath: data["image_path"],
-        selfIntroduction: data["self_introduction"],
-        createdTime: data["created_time"],
-        updatedTime: data["updated_time"],
-      );
-      Authentication.myAccount = myAccount;
+      DocumentSnapshot doc = await users.doc(uid).get();
+      Authentication.myAccount = Account.fromDocument(doc);
       if (kDebugMode) {
         print("【FlutterLog】新規ユーザー取得完了");
       }

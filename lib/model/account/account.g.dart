@@ -7,7 +7,7 @@ part of 'account.dart';
 // **************************************************************************
 
 _$_Account _$$_AccountFromJson(Map<String, dynamic> json) => _$_Account(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       userId: json['userId'] as String,
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,

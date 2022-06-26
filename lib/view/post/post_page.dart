@@ -39,7 +39,7 @@ class _PostPageState extends State<PostPage> {
                 if (contentController.text.isNotEmpty) {
                   Post newPost = Post(
                     content: contentController.text,
-                    postAccountId: Authentication.myAccount!.id,
+                    postAccountId: Authentication.myAccount!.id!,
                   );
                   var result = await PostFireStore.addPost(newPost);
                   if (result) {

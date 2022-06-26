@@ -20,7 +20,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Account {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $AccountCopyWith<$Res> {
   factory $AccountCopyWith(Account value, $Res Function(Account) then) =
       _$AccountCopyWithImpl<$Res>;
   $Res call(
-      {String id,
+      {String? id,
       String userId,
       String name,
       String imagePath,
@@ -71,7 +71,7 @@ class _$AccountCopyWithImpl<$Res> implements $AccountCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       userId: userId == freezed
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -107,7 +107,7 @@ abstract class _$$_AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
       __$$_AccountCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
+      {String? id,
       String userId,
       String name,
       String imagePath,
@@ -139,7 +139,7 @@ class __$$_AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       userId: userId == freezed
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ class __$$_AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Account implements _Account {
   const _$_Account(
-      {required this.id,
+      {this.id,
       required this.userId,
       required this.name,
       required this.imagePath,
@@ -184,7 +184,7 @@ class _$_Account implements _Account {
       _$$_AccountFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String userId;
   @override
@@ -248,7 +248,7 @@ class _$_Account implements _Account {
 
 abstract class _Account implements Account {
   const factory _Account(
-      {required final String id,
+      {final String? id,
       required final String userId,
       required final String name,
       required final String imagePath,
@@ -259,7 +259,7 @@ abstract class _Account implements Account {
   factory _Account.fromJson(Map<String, dynamic> json) = _$_Account.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @override
   String get userId => throw _privateConstructorUsedError;
   @override

@@ -101,7 +101,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       var imagePath = "";
                       if (fileImage != null) {
                         var result = await FunctionUtils.uploadImage(
-                            myAccount!.id, fileImage!);
+                            myAccount!.id!, fileImage!);
                         if (result is String) {
                           imagePath = result as String;
                         }
