@@ -1,24 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../utils/DateTimeTimestampConverter.dart';
 
 // 自動生成される2つのファイル
 part 'item_model.freezed.dart';
 part 'item_model.g.dart';
-
-// Firestoreでは、日付のデータをTimestamp型として扱っていますが、DartではDateTime型なので、変換して型を合わせるのに使います
-class DateTimeTimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const DateTimeTimestampConverter();
-
-  @override
-  DateTime fromJson(Timestamp json) {
-    return json.toDate();
-  }
-
-  @override
-  Timestamp toJson(DateTime object) {
-    return Timestamp.fromDate(object);
-  }
-}
 
 // クラスの作成
 @freezed
@@ -38,9 +24,15 @@ class Item with _$Item {
 
   // FirestoreとのデータのやりとりはMap型で行うので、変換して型を合わせるのに使います
   factory Item.fromDocument(DocumentSnapshot doc) {
+    print("【FlutterLog】doc.data()! =  ${doc.data()!}");
+
     final data = doc.data()! as Map<String, dynamic>;
+
+    print("【FlutterLog】data =  ${data}");
+
     return Item.fromJson(data).copyWith(id: doc.id);
   }
   Map<String, dynamic> toDocument() => toJson()..remove('id');
+
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }
