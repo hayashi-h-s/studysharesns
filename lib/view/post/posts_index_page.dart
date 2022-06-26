@@ -54,7 +54,6 @@ class _PostIndexPageState extends State<PostIndexPage> {
                           itemBuilder: (context, index) {
                             if (index == postSnapshot.data!.docs.length) {
                               return Container(
-                                height: 200,
                                 alignment: Alignment.center,
                                 child: const Padding(
                                   padding: EdgeInsets.all(10.0),

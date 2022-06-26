@@ -24,7 +24,7 @@ class _AccountPageState extends State<AccountPage> {
         body: SafeArea(
             child: SingleChildScrollView(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height + 160,
+        height: MediaQuery.of(context).size.height + 80,
         child: Column(children: [
           SizedBox(
             height: 200,
