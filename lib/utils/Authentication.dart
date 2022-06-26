@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-import '../model/account.dart';
+import '../model/account/account.dart';
 
 class Authentication {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

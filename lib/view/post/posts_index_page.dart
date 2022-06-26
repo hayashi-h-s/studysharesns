@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:studysharesns/model/account.dart';
+import 'package:studysharesns/model/account/account.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
 

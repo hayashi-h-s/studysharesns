@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:studysharesns/utils/Authentication.dart';
 
-import '../../model/account.dart';
+import '../../model/account/account.dart';
 
 class UserFireStore {
   static final _firesStoreInstance = FirebaseFirestore.instance;
   static final CollectionReference users =
-  _firesStoreInstance.collection("users");
+      _firesStoreInstance.collection("users");
 
   static Future<bool> setUser(Account newAccount) async {
     try {
@@ -34,8 +34,8 @@ class UserFireStore {
   static Future<bool> getUser(String uid) async {
     try {
       DocumentSnapshot documentSnapshot = await users.doc(uid).get();
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String,
-          dynamic>;
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
       Account myAccount = Account(
         id: uid,
         userId: data["user_id"],
@@ -81,7 +81,7 @@ class UserFireStore {
 
   static Future<Map<String, Account>?> getPostUserMap(
       List<String> accountIds) async {
-    Map<String, Account>map = {};
+    Map<String, Account> map = {};
     try {
       await Future.forEach(accountIds, (String accountId) async {
         var doc = await users.doc(accountId).get();
