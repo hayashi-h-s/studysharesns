@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../utils/DateTimeTimestampConverter.dart';
 
 // 自動生成される2つのファイル
@@ -24,12 +25,7 @@ class Item with _$Item {
 
   // FirestoreとのデータのやりとりはMap型で行うので、変換して型を合わせるのに使います
   factory Item.fromDocument(DocumentSnapshot doc) {
-    print("【FlutterLog】doc.data()! =  ${doc.data()!}");
-
     final data = doc.data()! as Map<String, dynamic>;
-
-    print("【FlutterLog】data =  ${data}");
-
     return Item.fromJson(data).copyWith(id: doc.id);
   }
   Map<String, dynamic> toDocument() => toJson()..remove('id');
