@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studysharesns/view/start_up/login_page.dart';
+import 'package:studysharesns/view/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

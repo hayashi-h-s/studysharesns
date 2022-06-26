@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
-import 'package:studysharesns/view/start_up/login_page.dart';
+import 'package:studysharesns/view/login/login_page.dart';
 
 import '../../model/account/account.dart';
 import '../../utils/function_utils.dart';

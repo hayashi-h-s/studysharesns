@@ -5,7 +5,7 @@ import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
 import 'package:studysharesns/view/screen.dart';
 
-import 'create_account.dart';
+import '../create_account/create_account.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
