@@ -15,8 +15,8 @@ class Account with _$Account {
     required String name,
     required String imagePath,
     @Default("") String selfIntroduction,
-    @DateTimeTimestampConverter() DateTime? createdTime,
-    @DateTimeTimestampConverter() DateTime? updatedTime,
+    @DateTimeTimestampConverter() DateTime? createdAt,
+    @DateTimeTimestampConverter() DateTime? updatedAt,
   }) = _Account;
 
   factory Account.fromJson(Map<String, dynamic> json) =>
@@ -32,8 +32,8 @@ class Account with _$Account {
       name: data["name"],
       imagePath: data["image_path"],
       selfIntroduction: data["self_introduction"],
-      createdTime: createdTime.toDate(),
-      updatedTime: updatedTime.toDate(),
+      createdAt: createdTime.toDate(),
+      updatedAt: updatedTime.toDate(),
     );
     return myAccount;
   }

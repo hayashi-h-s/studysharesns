@@ -65,8 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CreateAccountPage(),
+                                  builder: (context) => CreateAccountPage(),
                                 ));
                           })
                   ])),
@@ -98,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 onPressed: () async {
                   var getUserResult = await UserFireStore.getUser(
-                      "zKFPncmjyOYxolDuuBEnvkzGda03");
+                      "NQTOhxorUsZvwmVGP7Nvb0CTgR82");
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

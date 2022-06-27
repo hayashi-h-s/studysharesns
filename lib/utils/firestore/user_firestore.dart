@@ -81,8 +81,8 @@ class UserFireStore {
           name: data["name"],
           imagePath: data["image_path"],
           selfIntroduction: data["self_introduction"],
-          createdTime: data["created_time"],
-          updatedTime: data["updated_time"],
+          createdAt: data["created_time"],
+          updatedAt: data["updated_time"],
         );
         map[accountId] = postAccount;
       });
