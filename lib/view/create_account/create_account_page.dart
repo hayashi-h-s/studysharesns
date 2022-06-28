@@ -1,143 +1,137 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studysharesns/view/create_account/create_account_view_model.dart';
-import 'package:studysharesns/view/screen.dart';
 
-import '../../utils/function_utils.dart';
+import '../../controller/picker_controller.dart';
+import '../../provider/provider.dart';
+import '../screen.dart';
 
 class CreateAccountPage extends HookConsumerWidget {
-  CreateAccountPage({Key? key}) : super(key: key);
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController userIdController = TextEditingController();
-  TextEditingController selfIntroductionController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-
-  File? fileImage;
-  ImagePicker picker = ImagePicker();
+  const CreateAccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final imageFile = ref.watch(pickerPageProvider.select((s) => s.imageFile));
     final account = ref.watch(accountProvider);
     final accountNotifier = ref.watch(accountProvider.notifier);
 
+    final nameController = useTextEditingController();
+    final userIdController = useTextEditingController();
+    final selfIntroductionController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final passController = useTextEditingController();
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: const Text(
-            "アカウント登録",
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text(
+          "アカウント登録",
+          style: TextStyle(color: Colors.black),
         ),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () async {
-                    var pickedFile = await FunctionUtils.getImageFromGallery();
-                    if (pickedFile != null) {
-                      // setState(() {
-                      //   fileImage = File(pickedFile.path);
-                      // });
-                    }
-                  },
-                  child: CircleAvatar(
-                    radius: 40,
-                    foregroundImage:
-                        fileImage == null ? null : FileImage(fileImage!),
-                    child: const Icon(Icons.add),
-                  ),
+        centerTitle: true,
+      ),
+      body:
+
+          // account.when(
+          //   data: (account) =>
+          SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              GestureDetector(
+                onTap: () async {
+                  final image = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  await ref.read(pickerPageProvider.notifier).pickImage(image);
+                },
+                child: CircleAvatar(
+                  radius: 40,
+                  foregroundImage:
+                      imageFile == null ? null : FileImage(imageFile),
+                  child: const Icon(Icons.add),
                 ),
-                SizedBox(
+              ),
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(hintText: "名前"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: SizedBox(
                   width: 300,
                   child: TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(hintText: "名前"),
+                    controller: userIdController,
+                    decoration: const InputDecoration(hintText: "ユーザーID"),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: SizedBox(
-                    width: 300,
-                    child: TextField(
-                      controller: userIdController,
-                      decoration: const InputDecoration(hintText: "ユーザーID"),
-                    ),
-                  ),
+              ),
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  controller: selfIntroductionController,
+                  decoration: const InputDecoration(hintText: "自己紹介"),
                 ),
-                SizedBox(
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: SizedBox(
                   width: 300,
                   child: TextField(
-                    controller: selfIntroductionController,
-                    decoration: const InputDecoration(hintText: "自己紹介"),
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                        hintText: "メールアドレス"
+                            ""),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: SizedBox(
-                    width: 300,
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                          hintText: "メールアドレス"
-                              ""),
-                    ),
-                  ),
+              ),
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  controller: passController,
+                  decoration: const InputDecoration(hintText: "パスワード"),
                 ),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    controller: passController,
-                    decoration: const InputDecoration(hintText: "パスワード"),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (nameController.text.isEmpty ||
-                            userIdController.text.isEmpty ||
-                            selfIntroductionController.text.isEmpty ||
-                            emailController.text.isEmpty ||
-                            passController.text.isEmpty
-                        // &&
-                        // fileImage != null
-                        ) return;
-                    var result = await accountNotifier.createAccount(
-                        email: emailController.text,
-                        pass: passController.text,
-                        userId: userIdController.text,
-                        name: nameController.text,
-                        imagePath: "",
-                        selfIntroduction: selfIntroductionController.text);
-                    if (!result) {
-                      // TODO:エラー時の処理
-                    } else {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Screen(),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text("アカウント作成"),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (nameController.text.isEmpty ||
+                      userIdController.text.isEmpty ||
+                      selfIntroductionController.text.isEmpty ||
+                      emailController.text.isEmpty ||
+                      passController.text.isEmpty ||
+                      imageFile == null) return;
+
+                  final isCreatedAccount = await accountNotifier.createAccount(
+                      email: emailController.text,
+                      pass: passController.text,
+                      userId: userIdController.text,
+                      name: nameController.text,
+                      imageFile: imageFile,
+                      selfIntroduction: selfIntroductionController.text);
+
+                  if (isCreatedAccount) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Screen()),
+                    );
+                  }
+                },
+                child: const Text("アカウント作成"),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

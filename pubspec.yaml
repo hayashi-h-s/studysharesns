@@ -41,6 +41,7 @@ dependencies:
   freezed: ^2.0.3+1
   freezed_annotation: ^2.0.3
   hooks_riverpod: ^1.0.4
+  state_notifier: ^0.7.2+1
   json_serializable: ^6.2.0
 
   #region Firebase
