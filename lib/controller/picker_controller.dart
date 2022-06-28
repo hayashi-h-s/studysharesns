@@ -13,11 +13,6 @@ class PickerState with _$PickerState {
   }) = _PickerState;
 }
 
-final pickerProvider =
-    StateNotifierProvider.autoDispose<PickerController, PickerState>((ref) {
-  return PickerController();
-});
-
 class PickerController extends StateNotifier<PickerState> {
   PickerController() : super(const PickerState());
 

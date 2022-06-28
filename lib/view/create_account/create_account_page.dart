@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../controller/picker_controller.dart';
 import '../../provider/provider.dart';
 import '../screen.dart';
 
@@ -12,7 +11,7 @@ class CreateAccountPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imageFile = ref.watch(pickerPageProvider.select((s) => s.imageFile));
+    final imageFile = ref.watch(pickerProvider.select((s) => s.imageFile));
     final account = ref.watch(accountProvider);
     final accountNotifier = ref.watch(accountProvider.notifier);
 
@@ -47,7 +46,7 @@ class CreateAccountPage extends HookConsumerWidget {
                 onTap: () async {
                   final image = await ImagePicker()
                       .pickImage(source: ImageSource.gallery);
-                  await ref.read(pickerPageProvider.notifier).pickImage(image);
+                  await ref.read(pickerProvider.notifier).pickImage(image);
                 },
                 child: CircleAvatar(
                   radius: 40,
