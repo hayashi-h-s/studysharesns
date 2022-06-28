@@ -96,8 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text("emailログイン")),
               ElevatedButton(
                 onPressed: () async {
-                  var getUserResult = await UserFireStore.getUser(
-                      "NQTOhxorUsZvwmVGP7Nvb0CTgR82");
+                  // var getUserResult = await UserFireStore.getUser(
+                  //     "NQTOhxorUsZvwmVGP7Nvb0CTgR82");
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
