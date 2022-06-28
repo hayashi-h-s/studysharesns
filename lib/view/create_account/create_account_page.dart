@@ -32,11 +32,7 @@ class CreateAccountPage extends HookConsumerWidget {
         ),
         centerTitle: true,
       ),
-      body:
-
-          // account.when(
-          //   data: (account) =>
-          SingleChildScrollView(
+      body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
           child: Column(
