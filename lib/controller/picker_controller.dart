@@ -15,7 +15,7 @@ class PickerState with _$PickerState {
 
 final pickerProvider =
     StateNotifierProvider.autoDispose<PickerController, PickerState>((ref) {
-  return PickerPageController();
+  return PickerController();
 });
 
 class PickerController extends StateNotifier<PickerState> {
