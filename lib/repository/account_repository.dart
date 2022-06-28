@@ -46,7 +46,6 @@ class AccountRepository implements BaseAccountRepository {
     try {
       return await _read(firebaseFirebaseAuthProvider)
           .createUserWithEmailAndPassword(email: email, password: pass);
-      ;
     } catch (e) {
       throw e.toString();
     }
