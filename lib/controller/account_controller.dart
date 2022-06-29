@@ -1,11 +1,21 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
 
-import '../../model/account/account.dart';
-import '../../provider/provider.dart';
+import '../model/account/account.dart';
+import '../provider/provider.dart';
+
+part 'account_controller.freezed.dart';
+
+@freezed
+class AccountState with _$AccountState {
+  const factory AccountState({
+    Account? account,
+  }) = _AccountState;
+}
 
 class AccountNotifier extends StateNotifier<Account?> {
   final Reader _read;
