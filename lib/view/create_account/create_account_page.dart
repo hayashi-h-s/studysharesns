@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../model/account/account.dart';
 import '../../provider/provider.dart';
 import '../screen.dart';
 
@@ -12,7 +13,6 @@ class CreateAccountPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile = ref.watch(pickerProvider.select((s) => s.imageFile));
-    final account = ref.watch(accountProvider);
     final accountNotifier = ref.watch(accountProvider.notifier);
 
     final nameController = useTextEditingController();
@@ -20,6 +20,15 @@ class CreateAccountPage extends HookConsumerWidget {
     final selfIntroductionController = useTextEditingController();
     final emailController = useTextEditingController();
     final passController = useTextEditingController();
+
+    ref.listen<Account?>(accountProvider, (oldAccount, newAccount) {
+      if (newAccount != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Screen()),
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -106,20 +115,13 @@ class CreateAccountPage extends HookConsumerWidget {
                       passController.text.isEmpty ||
                       imageFile == null) return;
 
-                  final isCreatedAccount = await accountNotifier.createAccount(
+                  await accountNotifier.createAccount(
                       email: emailController.text,
                       pass: passController.text,
                       userId: userIdController.text,
                       name: nameController.text,
                       imageFile: imageFile,
                       selfIntroduction: selfIntroductionController.text);
-
-                  if (isCreatedAccount) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Screen()),
-                    );
-                  }
                 },
                 child: const Text("アカウント作成"),
               )

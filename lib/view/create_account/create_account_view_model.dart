@@ -7,14 +7,12 @@ import 'package:studysharesns/utils/log_util.dart';
 import '../../model/account/account.dart';
 import '../../provider/provider.dart';
 
-class AccountNotifier extends StateNotifier<AsyncValue<Account>> {
+class AccountNotifier extends StateNotifier<Account?> {
   final Reader _read;
 
-  AccountNotifier(this._read) : super(const AsyncValue.loading()) {
-    // TODO: データ取得処理実装時に修正
-  }
+  AccountNotifier(this._read) : super(null);
 
-  Future<bool> createAccount(
+  Future<void> createAccount(
       {required String email,
       required String pass,
       required String userId,
@@ -36,19 +34,11 @@ class AccountNotifier extends StateNotifier<AsyncValue<Account>> {
         selfIntroduction: selfIntroduction,
         createdAt: DateTime.now(),
       );
-      final accountId = await _read(accountRepositoryProvider)
-          .createAccount(account: account);
-      state.whenData(
-        (account) => state = AsyncValue.data(
-          account.copyWith(id: accountId),
-        ),
-      );
+      state = account;
       LogUtils.outputLog("アカウント作成成功");
-      return true;
     } catch (e) {
       LogUtils.outputLog("アカウント作成失敗");
-      state = AsyncValue.error(e);
-      return false;
+      // TODO:エラー処理
     }
   }
 }
