@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studysharesns/view/create_account/create_account_view_model.dart';
 
 import '../../model/account/account.dart';
 import '../../provider/provider.dart';
@@ -13,7 +14,8 @@ class CreateAccountPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile = ref.watch(pickerProvider.select((s) => s.imageFile));
-    final accountNotifier = ref.watch(accountProvider.notifier);
+    final createAccountPageViewModel =
+        ref.watch(createAccountPageProvider.notifier);
 
     final nameController = useTextEditingController();
     final userIdController = useTextEditingController();
@@ -21,7 +23,7 @@ class CreateAccountPage extends HookConsumerWidget {
     final emailController = useTextEditingController();
     final passController = useTextEditingController();
 
-    ref.listen<Account?>(accountProvider, (oldAccount, newAccount) {
+    ref.listen<Account?>(accountController, (oldAccount, newAccount) {
       if (newAccount != null) {
         Navigator.pushReplacement(
           context,
@@ -115,7 +117,7 @@ class CreateAccountPage extends HookConsumerWidget {
                       passController.text.isEmpty ||
                       imageFile == null) return;
 
-                  await accountNotifier.createAccount(
+                  createAccountPageViewModel.onPressedCreateAccountButton(
                       email: emailController.text,
                       pass: passController.text,
                       userId: userIdController.text,

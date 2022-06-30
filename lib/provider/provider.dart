@@ -20,8 +20,9 @@ final firebaseFirebaseStorageProvider =
 //endregion
 
 // model region start
-final accountProvider = StateNotifierProvider<AccountNotifier, Account?>((ref) {
-  return AccountNotifier(ref.read);
+final accountController =
+    StateNotifierProvider<AccountController, Account?>((ref) {
+  return AccountController(ref.read);
 });
 //endregion
 
