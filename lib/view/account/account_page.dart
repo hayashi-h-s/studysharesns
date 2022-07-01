@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
-import 'package:studysharesns/view/account/edit_account_page.dart';
+import 'package:studysharesns/view/edit_account/edit_account_page.dart';
 
 import '../../model/account/account.dart';
 import '../../model/post.dart';

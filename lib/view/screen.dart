@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studysharesns/materials/view/item_list_page.dart';
 import 'package:studysharesns/view/post/post_page.dart';
-import 'package:studysharesns/view/post/posts_index_page.dart';
+import 'package:studysharesns/view/post_index/posts_index_page.dart';
 
 import 'account/account_page.dart';
 

@@ -134,7 +134,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
+                          builder: (context) => LoginPage(),
                         ));
                   },
                   child: const Text("ログアウト"),

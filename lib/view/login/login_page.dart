@@ -1,25 +1,32 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:studysharesns/utils/Authentication.dart';
-import 'package:studysharesns/utils/firestore/user_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/view/screen.dart';
 
+import '../../model/account/account.dart';
+import '../../provider/provider.dart';
 import '../create_account/create_account_page.dart';
+import 'login_page_view_model.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends HookConsumerWidget {
+  LoginPage({Key? key}) : super(key: key);
 
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginPageViewModel = ref.watch(loginPageProvider.notifier);
+
+    ref.listen<Account?>(accountController, (oldAccount, loginAccount) {
+      if (loginAccount != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Screen()),
+        );
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
@@ -36,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Container(
+                child: SizedBox(
                     width: 300,
                     child: TextField(
                       controller: emailController,
@@ -76,37 +83,12 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     if (emailController.text.isNotEmpty &&
                         passController.text.isNotEmpty) {
-                      final result = await Authentication.emailSignIn(
+                      loginPageViewModel.onPressedLoginButton(
                           email: emailController.text,
                           pass: passController.text);
-                      if (result is UserCredential) {
-                        var getUserResult =
-                            await UserFireStore.getUser(result.user!.uid);
-                        if (getUserResult == true) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Screen(),
-                            ),
-                          );
-                        }
-                      }
                     }
                   },
                   child: const Text("emailログイン")),
-              ElevatedButton(
-                onPressed: () async {
-                  // var getUserResult = await UserFireStore.getUser(
-                  //     "NQTOhxorUsZvwmVGP7Nvb0CTgR82");
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Screen(),
-                    ),
-                  );
-                },
-                child: const Text("テストボタン"),
-              )
             ],
           ),
         ),

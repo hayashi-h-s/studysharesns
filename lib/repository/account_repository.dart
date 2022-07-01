@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
@@ -8,12 +9,18 @@ import '../model/account/account.dart';
 import '../provider/provider.dart';
 
 abstract class BaseAccountRepository {
-  Future<String> createAccount({required Account account});
+  Future<void> createAccount({required Account account});
 
   Future<UserCredential> signUpAccount(
       {required String email, required String pass});
 
+  Future<UserCredential> emailSignIn(
+      {required String email, required String pass});
+
+  Future<Account> getUser({required String uid});
+
   Future<void> uploadAccountImage({required File file, required String? uid});
+
   Future<String> getAccountImage({required String? uid});
 }
 
@@ -23,15 +30,21 @@ class AccountRepository implements BaseAccountRepository {
   const AccountRepository(this._read);
 
   @override
-  Future<String> createAccount({
+  Future<void> createAccount({
     required Account account,
   }) async {
     try {
-      final docRef =
-          await _read(firebaseFirestoreProvider).collection('user').add(
-                account.toDocument(),
-              );
-      return docRef.id;
+      await _read(firebaseFirestoreProvider)
+          .collection('users')
+          .doc(account.id)
+          .set({
+        "name": account.name,
+        "user_id": account.userId,
+        "self_introduction": account.selfIntroduction,
+        "image_path": account.imagePath,
+        "created_time": Timestamp.now(),
+        "updated_time": Timestamp.now(),
+      });
     } catch (e) {
       throw e.toString();
     }
@@ -48,6 +61,37 @@ class AccountRepository implements BaseAccountRepository {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  @override
+  Future<UserCredential> emailSignIn(
+      {required String email, required String pass}) async {
+    try {
+      return await _read(firebaseFirebaseAuthProvider)
+          .signInWithEmailAndPassword(email: email, password: pass);
+    } catch (e) {
+      LogUtils.outputLog("emailSignIn失敗 -> $e ");
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<Account> getUser({required String uid}) async {
+    DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    final createdAt = data["created_time"] as Timestamp;
+    final updatedAt = data["updated_time"] as Timestamp;
+    Account myAccount = Account(
+      id: uid,
+      userId: data["user_id"],
+      name: data["name"],
+      imagePath: data["image_path"],
+      selfIntroduction: data["self_introduction"],
+      createdAt: createdAt.toDate(),
+      updatedAt: updatedAt.toDate(),
+    );
+    return myAccount;
   }
 
   @override
@@ -76,30 +120,4 @@ class AccountRepository implements BaseAccountRepository {
       throw e.toString();
     }
   }
-
-// @override
-// Future<void> getAccountImage({required File file}) async {
-//   try {
-//     await _read(firebaseFirebaseStorageProvider).ref().putFile(file);
-//   } catch (e) {
-//     throw e.toString();
-//   }
-// }
-//
-// final FirebaseStorage storageInstance = FirebaseStorage.instance;
-// final Reference ref = storageInstance.ref();
-// try {
-// await ref.child(uid).putFile(image);
-// String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
-// if (kDebugMode) {
-// print("画像登録成功 = $downloadUrl");
-// }
-// return downloadUrl;
-// } on FirebaseException catch (e) {
-// if (kDebugMode) {
-// print("画像登録失敗 =  ${e}");
-// }
-// return false;
-// }
-
 }

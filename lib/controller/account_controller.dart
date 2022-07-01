@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../model/account/account.dart';
 import '../provider/provider.dart';
+import '../utils/log_util.dart';
 
 part 'account_controller.freezed.dart';
 
@@ -44,5 +45,21 @@ class AccountController extends StateNotifier<Account?> {
     );
     await _read(accountRepositoryProvider).createAccount(account: account);
     state = account;
+  }
+
+  Future<void> emailSignIn({
+    required String email,
+    required String pass,
+  }) async {
+    try {
+      UserCredential signInAccount = await _read(accountRepositoryProvider)
+          .emailSignIn(email: email, pass: pass);
+      final myAccount = await _read(accountRepositoryProvider)
+          .getUser(uid: signInAccount.user!.uid); // TODO: !で問題ないか？エラー処理すればいいのか？
+      state = myAccount;
+    } on Exception catch (e) {
+      LogUtils.outputLog("ログイン失敗");
+      // TODO: エラー処理
+    }
   }
 }

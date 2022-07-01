@@ -23,17 +23,17 @@ class Account with _$Account {
       _$AccountFromJson(json);
 
   factory Account.fromDocument(DocumentSnapshot doc) {
-    final data = doc.data()! as Map<String, dynamic>;
-    Timestamp createdTime = data["created_time"];
-    Timestamp updatedTime = data["updated_time"];
+    final data = doc.data() as Map<String, dynamic>;
+    Timestamp createdAt = data["createdAt"];
+    Timestamp updatedAt = data["updatedAt"];
     Account myAccount = Account(
       id: doc.id,
       userId: data["user_id"],
       name: data["name"],
       imagePath: data["image_path"],
       selfIntroduction: data["self_introduction"],
-      createdAt: createdTime.toDate(),
-      updatedAt: updatedTime.toDate(),
+      createdAt: createdAt.toDate(),
+      updatedAt: updatedAt.toDate(),
     );
     return myAccount;
   }
