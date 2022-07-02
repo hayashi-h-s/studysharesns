@@ -40,8 +40,10 @@ class PostRepository implements BasePostRepository {
   @override
   Future<List<Post>> getPosts() async {
     try {
-      final snap =
-          await _read(firebaseFirestoreProvider).collection('posts').get();
+      final snap = await _read(firebaseFirestoreProvider)
+          .collection('posts')
+          .orderBy("createdAt", descending: true)
+          .get();
       return snap.docs.map((doc) => Post.fromDocument(doc)).toList();
     } catch (e) {
       // 本来は例外処理をした方が良いですが、簡潔にするため省略しています
