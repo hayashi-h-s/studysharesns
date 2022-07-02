@@ -25,22 +25,8 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
 
   Future<void> onPressedPostButton({
     required String content,
+    required String postUserId,
   }) async {
-    print("【FlutterLog】content = $content ");
-    // _postController.addPost(
-
-    // try {
-    //   await _accountController.createAccount(
-    //       email: email,
-    //       pass: pass,
-    //       userId: userId,
-    //       name: userId,
-    //       imageFile: imageFile,
-    //       selfIntroduction: selfIntroduction);
-    //   LogUtils.outputLog("アカウント作成成功");
-    // } on Exception catch (e) {
-    //   LogUtils.outputLog("アカウント作成失敗");
-    //   // TODO: エラー処理
-    // }
+    _postController.addPost(content: content, postUserId: postUserId);
   }
 }

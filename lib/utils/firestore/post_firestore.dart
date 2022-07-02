@@ -42,13 +42,13 @@ class PostFireStore {
       await Future.forEach(ids, (String id) async {
         var doc = await posts.doc(id).get();
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        Post post = Post(
-          id: doc.id,
-          content: data["content"],
-          postAccountId: data["post_account_id"],
-          createdTime: data["created_time"],
-        );
-        postList.add(post);
+        // Post post = Post(
+        //   id: doc.id,
+        //   content: data["content"],
+        //   postAccountId: data["post_account_id"],
+        //   createdTime: data["created_time"],
+        // );
+        // postList.add(post);
       });
       if (kDebugMode) {
         print("【FlutterLog】自分の投稿取得完了");

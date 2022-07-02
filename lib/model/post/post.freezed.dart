@@ -24,7 +24,7 @@ mixin _$Post {
   String get content => throw _privateConstructorUsedError;
   String get postAccountId => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime get createdTime => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +39,7 @@ abstract class $PostCopyWith<$Res> {
       {String? id,
       String content,
       String postAccountId,
-      @DateTimeTimestampConverter() DateTime createdTime});
+      @DateTimeTimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
     Object? id = freezed,
     Object? content = freezed,
     Object? postAccountId = freezed,
-    Object? createdTime = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -70,9 +70,9 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
           ? _value.postAccountId
           : postAccountId // ignore: cast_nullable_to_non_nullable
               as String,
-      createdTime: createdTime == freezed
-          ? _value.createdTime
-          : createdTime // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -87,7 +87,7 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String? id,
       String content,
       String postAccountId,
-      @DateTimeTimestampConverter() DateTime createdTime});
+      @DateTimeTimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
     Object? id = freezed,
     Object? content = freezed,
     Object? postAccountId = freezed,
-    Object? createdTime = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_$_Post(
       id: id == freezed
@@ -119,9 +119,9 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
           ? _value.postAccountId
           : postAccountId // ignore: cast_nullable_to_non_nullable
               as String,
-      createdTime: createdTime == freezed
-          ? _value.createdTime
-          : createdTime // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -134,7 +134,7 @@ class _$_Post extends _Post {
       {this.id,
       required this.content,
       required this.postAccountId,
-      @DateTimeTimestampConverter() required this.createdTime})
+      @DateTimeTimestampConverter() required this.createdAt})
       : super._();
 
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
@@ -147,11 +147,11 @@ class _$_Post extends _Post {
   final String postAccountId;
   @override
   @DateTimeTimestampConverter()
-  final DateTime createdTime;
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'Post(id: $id, content: $content, postAccountId: $postAccountId, createdTime: $createdTime)';
+    return 'Post(id: $id, content: $content, postAccountId: $postAccountId, createdAt: $createdAt)';
   }
 
   @override
@@ -163,8 +163,7 @@ class _$_Post extends _Post {
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality()
                 .equals(other.postAccountId, postAccountId) &&
-            const DeepCollectionEquality()
-                .equals(other.createdTime, createdTime));
+            const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
   @JsonKey(ignore: true)
@@ -174,7 +173,7 @@ class _$_Post extends _Post {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(content),
       const DeepCollectionEquality().hash(postAccountId),
-      const DeepCollectionEquality().hash(createdTime));
+      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +191,7 @@ abstract class _Post extends Post {
           {final String? id,
           required final String content,
           required final String postAccountId,
-          @DateTimeTimestampConverter() required final DateTime createdTime}) =
+          @DateTimeTimestampConverter() required final DateTime createdAt}) =
       _$_Post;
   const _Post._() : super._();
 
@@ -206,7 +205,7 @@ abstract class _Post extends Post {
   String get postAccountId => throw _privateConstructorUsedError;
   @override
   @DateTimeTimestampConverter()
-  DateTime get createdTime => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_PostCopyWith<_$_Post> get copyWith => throw _privateConstructorUsedError;

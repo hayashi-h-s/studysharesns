@@ -10,14 +10,14 @@ _$_Post _$$_PostFromJson(Map<String, dynamic> json) => _$_Post(
       id: json['id'] as String?,
       content: json['content'] as String,
       postAccountId: json['postAccountId'] as String,
-      createdTime: const DateTimeTimestampConverter()
-          .fromJson(json['createdTime'] as Timestamp),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['createdAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$$_PostToJson(_$_Post instance) => <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
       'postAccountId': instance.postAccountId,
-      'createdTime':
-          const DateTimeTimestampConverter().toJson(instance.createdTime),
+      'createdAt':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
     };

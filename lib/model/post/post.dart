@@ -14,7 +14,7 @@ class Post with _$Post {
       {String? id,
       required String content,
       required String postAccountId,
-      @DateTimeTimestampConverter() required DateTime createdTime}) = _Post;
+      @DateTimeTimestampConverter() required DateTime createdAt}) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
