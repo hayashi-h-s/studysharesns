@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
 import 'package:studysharesns/view/edit_account/edit_account_page.dart';
 
 import '../../model/account/account.dart';
-import '../../model/post.dart';
+import '../../model/post/post.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -176,10 +175,10 @@ class _AccountPageState extends State<AccountPage> {
                                                                         .grey)),
                                                       ],
                                                     ),
-                                                    Text(DateFormat("M/d/yy")
-                                                        .format(post
-                                                            .createdTime!
-                                                            .toDate())),
+                                                    // Text(DateFormat("M/d/yy")
+                                                    //     .format(post
+                                                    //         .createdTime!
+                                                    //         .toDate())),
                                                   ]),
                                               Text(post.content),
                                             ],

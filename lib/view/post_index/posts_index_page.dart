@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:studysharesns/model/account/account.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
 
-import '../../model/post.dart';
+import '../../model/post/post.dart';
 
 class PostIndexPage extends StatefulWidget {
   const PostIndexPage({Key? key}) : super(key: key);
@@ -118,9 +117,9 @@ class _PostIndexPageState extends State<PostIndexPage> {
                                                                 Colors.grey)),
                                                   ],
                                                 ),
-                                                Text(DateFormat("M/d/yy")
-                                                    .format(post.createdTime!
-                                                        .toDate())),
+                                                // Text(DateFormat("M/d/yy")
+                                                //     .format(post.createdTime!
+                                                //         .toDate())),
                                               ]),
                                           Text(post.content),
                                         ],

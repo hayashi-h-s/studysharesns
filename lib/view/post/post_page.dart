@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studysharesns/utils/Authentication.dart';
-import 'package:studysharesns/utils/firestore/post_firestore.dart';
-
-import '../../model/post.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -36,16 +32,17 @@ class _PostPageState extends State<PostPage> {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () async {
-                if (contentController.text.isNotEmpty) {
-                  Post newPost = Post(
-                    content: contentController.text,
-                    postAccountId: Authentication.myAccount!.id!,
-                  );
-                  var result = await PostFireStore.addPost(newPost);
-                  if (result) {
-                    Navigator.pop(context);
-                  }
-                }
+                // TODO:投稿処理修正時に修正
+                // if (contentController.text.isNotEmpty) {
+                //   Post newPost = Post(
+                //     content: contentController.text,
+                //     postAccountId: Authentication.myAccount!.id!,
+                //   );
+                //   var result = await PostFireStore.addPost(newPost);
+                //   if (result) {
+                //     Navigator.pop(context);
+                //   }
+                // }
               },
               child: const Text("投稿"),
             )

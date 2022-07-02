@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import '../../model/post.dart';
+
+import '../../model/post/post.dart';
 
 class PostFireStore {
   static final _firesStoreInstance = FirebaseFirestore.instance;
@@ -40,7 +41,7 @@ class PostFireStore {
     try {
       await Future.forEach(ids, (String id) async {
         var doc = await posts.doc(id).get();
-        Map<String,dynamic> data = doc.data() as Map<String,dynamic>;
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         Post post = Post(
           id: doc.id,
           content: data["content"],
