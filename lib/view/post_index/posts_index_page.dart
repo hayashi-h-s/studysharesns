@@ -1,25 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/model/account/account.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
 
+import '../../controller/post_controller/post_controller.dart';
 import '../../model/post/post.dart';
 
-class PostIndexPage extends StatefulWidget {
+class PostIndexPage extends HookConsumerWidget {
   const PostIndexPage({Key? key}) : super(key: key);
 
-  @override
-  _PostIndexPageState createState() => _PostIndexPageState();
-}
-
-class _PostIndexPageState extends State<PostIndexPage> {
   Future<bool> _willPopCallback() async {
     return false;
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postList = ref.watch(postListProvider);
+
     return WillPopScope(
       onWillPop: _willPopCallback,
       child: Scaffold(

@@ -8,7 +8,7 @@ part 'add_post_page_view_model.freezed.dart';
 
 final addPostPageProvider =
     StateNotifierProvider<AddPostPageProvider, AddPostPageState>(
-  (ref) => AddPostPageProvider(ref.watch(postController.notifier)),
+  (ref) => AddPostPageProvider(ref.watch(postListProvider.notifier)),
 );
 
 @freezed

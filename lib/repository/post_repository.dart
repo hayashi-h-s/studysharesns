@@ -9,6 +9,8 @@ final postRepositoryProvider =
 
 abstract class BasePostRepository {
   Future<String> createPost({required Post post});
+
+  Future<List<Post>> getPosts();
 }
 
 class PostRepository implements BasePostRepository {
@@ -31,6 +33,23 @@ class PostRepository implements BasePostRepository {
         throw e.toString();
       }
     } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<List<Post>> getPosts() async {
+    try {
+      print("【FlutterLog】Future<List<Post>> getPosts() async {");
+
+      final snap =
+          await _read(firebaseFirestoreProvider).collection('posts').get();
+
+      print("【FlutterLog】snap =${snap.docs.length}");
+
+      return snap.docs.map((doc) => Post.fromDocument(doc)).toList();
+    } catch (e) {
+      // 本来は例外処理をした方が良いですが、簡潔にするため省略しています
       throw e.toString();
     }
   }
