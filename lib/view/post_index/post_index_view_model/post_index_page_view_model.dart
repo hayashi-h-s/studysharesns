@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../controller/post_controller/post_controller.dart';
+import '../../../controller/post_list_controller/post_list_controller.dart';
 
 part 'post_index_page_view_model.freezed.dart';
 
@@ -22,5 +22,5 @@ class PostIndexPageProvider extends StateNotifier<PostIndexPageState> {
     this._postController,
   ) : super(const PostIndexPageState());
 
-  final PostController _postController;
+  final PostListController _postController;
 }

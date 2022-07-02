@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
 
-import '../../../controller/post_controller/post_controller.dart';
+import '../../../controller/post_list_controller/post_list_controller.dart';
 
 part 'add_post_page_view_model.freezed.dart';
 
@@ -23,7 +23,7 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
     this._postController,
   ) : super(const AddPostPageState());
 
-  final PostController _postController;
+  final PostListController _postController;
 
   void onPressedPostButton({
     required String content,

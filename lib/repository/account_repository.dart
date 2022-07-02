@@ -19,6 +19,8 @@ abstract class BaseAccountRepository {
 
   Future<Account> getUser({required String uid});
 
+  Future<List<Account>> getPostUsers({required List<String> postAccountIds});
+
   Future<void> uploadAccountImage({required File file, required String? uid});
 
   Future<String> getAccountImage({required String? uid});
@@ -80,6 +82,23 @@ class AccountRepository implements BaseAccountRepository {
     DocumentSnapshot documentSnapshot =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
     return Account.fromDocument(documentSnapshot);
+  }
+
+  @override
+  Future<List<Account>> getPostUsers(
+      {required List<String> postAccountIds}) async {
+    try {
+      var accounts = <Account>[];
+      await Future.forEach(postAccountIds, (String postAccountId) async {
+        var postAccount = await getUser(uid: postAccountId);
+        accounts.add(postAccount);
+      });
+      LogUtils.outputLog("投稿ユーザー一覧取得成功");
+      return accounts;
+    } on FirebaseException catch (e) {
+      LogUtils.outputLog("投稿ユーザー一覧取得失敗 -> $e");
+      throw e.toString();
+    }
   }
 
   @override

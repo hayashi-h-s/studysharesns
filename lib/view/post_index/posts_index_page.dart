@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
-import '../../controller/post_controller/post_controller.dart';
+import '../../controller/account_list_controller/account_list_controller.dart';
+import '../../controller/post_list_controller/post_list_controller.dart';
+import '../../model/account/account.dart';
 
 class PostIndexPage extends HookConsumerWidget {
   const PostIndexPage({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class PostIndexPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final postList = ref.watch(postListProvider);
+    final accountList = ref.watch(accountListProvider);
 
     return WillPopScope(
       onWillPop: _willPopCallback,
@@ -22,12 +26,18 @@ class PostIndexPage extends HookConsumerWidget {
               title: const Text("投稿一覧"),
               backgroundColor: Colors.indigo,
               automaticallyImplyLeading: false),
-          body: postList.when(
-            data: (posts) => ListView.builder(
-              itemCount: posts.length,
+          body: accountList.when(
+            data: (accountList) => ListView.builder(
+              itemCount: postList.value?.length,
               itemBuilder: (context, index) {
-                final post = posts[index];
-                if (index + 1 == posts.length) {
+                final post = postList.value?[index];
+                late Account postAccount;
+                for (var account in accountList) {
+                  if (account.id == post?.postAccountId) {
+                    postAccount = account;
+                  }
+                }
+                if (index + 1 == postList.value?.length) {
                   return Container(
                     alignment: Alignment.center,
                     child: const Padding(
@@ -39,18 +49,6 @@ class PostIndexPage extends HookConsumerWidget {
                     ),
                   );
                 }
-                // TODO: ユーザー情報取得処理修正時に修正
-                // Map<String, dynamic> data =
-                // postSnapshot.data!.docs[index].data()
-                // as Map<String, dynamic>;
-                // Post post = Post(
-                //   id: postSnapshot.data!.docs[index].id,
-                //   content: data["content"],
-                //   postAccountId: data["post_account_id"],
-                //   createdAt: data["createdAt"],
-                // );
-                // Account postAccount =
-                // userSnapshot.data![post.postAccountId]!;
                 return Container(
                   decoration: BoxDecoration(
                     border: index == 0
@@ -67,9 +65,7 @@ class PostIndexPage extends HookConsumerWidget {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        // TODO: ユーザー情報取得時に実装
-                        // foregroundImage:
-                        // NetworkImage()),
+                        foregroundImage: NetworkImage(postAccount.imagePath),
                       ),
                       Expanded(
                         child: Container(
@@ -83,15 +79,16 @@ class PostIndexPage extends HookConsumerWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Text("postAccount.name"),
-                                        Text("@postAccount.userId}",
+                                        Text(postAccount.name),
+                                        Text("@${postAccount.userId}",
                                             style: const TextStyle(
                                                 color: Colors.grey)),
                                       ],
                                     ),
-                                    // Text(DateFormat("M/d/yy")
-                                    //     .format(post.createdTime!
-                                    //         .toDate())),
+                                    Text(
+                                      DateFormat("M/d/yy")
+                                          .format(post!.createdAt),
+                                    ),
                                   ]),
                               Text(post.content),
                             ],
