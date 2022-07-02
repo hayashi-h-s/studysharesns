@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studysharesns/view/post/post_page_view_model/post_page_view_model.dart';
 
-class PostPage extends StatefulWidget {
-  const PostPage({Key? key}) : super(key: key);
+class PostPage extends HookConsumerWidget {
+  PostPage({Key? key}) : super(key: key);
 
-  @override
-  _PostPageState createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  TextEditingController contentController = TextEditingController();
+  final contentController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postPageViewModel = ref.watch(postPageProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -32,6 +30,8 @@ class _PostPageState extends State<PostPage> {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () async {
+                postPageViewModel.onPressedPostButton();
+
                 // TODO:投稿処理修正時に修正
                 // if (contentController.text.isNotEmpty) {
                 //   Post newPost = Post(

@@ -22,26 +22,27 @@ class PostPageProvider extends StateNotifier<PostPageState> {
 
   final PostController _postController;
 
-  // Future<void> onPressedPostButton(
-  //     // {required String email,
-  //     //   required String pass,
-  //     //   required String userId,
-  //     //   required String name,
-  //     //   required File imageFile,
-  //     //   required String selfIntroduction}
-  //     ) async {
-  //   // try {
-  //   //   await _accountController.createAccount(
-  //   //       email: email,
-  //   //       pass: pass,
-  //   //       userId: userId,
-  //   //       name: userId,
-  //   //       imageFile: imageFile,
-  //   //       selfIntroduction: selfIntroduction);
-  //   //   LogUtils.outputLog("アカウント作成成功");
-  //   // } on Exception catch (e) {
-  //   //   LogUtils.outputLog("アカウント作成失敗");
-  //   //   // TODO: エラー処理
-  //   // }
-  // }
+  Future<void> onPressedPostButton(
+      // {required String email,
+      //   required String pass,
+      //   required String userId,
+      //   required String name,
+      //   required File imageFile,
+      //   required String selfIntroduction}
+      ) async {
+    print("【FlutterLog】onPressedPostButton ");
+    // try {
+    //   await _accountController.createAccount(
+    //       email: email,
+    //       pass: pass,
+    //       userId: userId,
+    //       name: userId,
+    //       imageFile: imageFile,
+    //       selfIntroduction: selfIntroduction);
+    //   LogUtils.outputLog("アカウント作成成功");
+    // } on Exception catch (e) {
+    //   LogUtils.outputLog("アカウント作成失敗");
+    //   // TODO: エラー処理
+    // }
+  }
 }
