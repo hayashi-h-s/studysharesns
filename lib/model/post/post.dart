@@ -11,7 +11,7 @@ class Post with _$Post {
   const Post._();
 
   const factory Post(
-      {required String id,
+      {String? id,
       required String content,
       required String postAccountId,
       @DateTimeTimestampConverter() required DateTime createdTime}) = _Post;

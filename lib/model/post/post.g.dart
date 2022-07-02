@@ -7,7 +7,7 @@ part of 'post.dart';
 // **************************************************************************
 
 _$_Post _$$_PostFromJson(Map<String, dynamic> json) => _$_Post(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       content: json['content'] as String,
       postAccountId: json['postAccountId'] as String,
       createdTime: const DateTimeTimestampConverter()

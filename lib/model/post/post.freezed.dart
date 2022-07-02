@@ -20,7 +20,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String get postAccountId => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
@@ -36,7 +36,7 @@ abstract class $PostCopyWith<$Res> {
   factory $PostCopyWith(Post value, $Res Function(Post) then) =
       _$PostCopyWithImpl<$Res>;
   $Res call(
-      {String id,
+      {String? id,
       String content,
       String postAccountId,
       @DateTimeTimestampConverter() DateTime createdTime});
@@ -61,7 +61,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       __$$_PostCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
+      {String? id,
       String content,
       String postAccountId,
       @DateTimeTimestampConverter() DateTime createdTime});
@@ -110,7 +110,7 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Post extends _Post {
   const _$_Post(
-      {required this.id,
+      {this.id,
       required this.content,
       required this.postAccountId,
       @DateTimeTimestampConverter() required this.createdTime})
@@ -140,7 +140,7 @@ class _$_Post extends _Post {
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String content;
   @override
@@ -189,7 +189,7 @@ class _$_Post extends _Post {
 
 abstract class _Post extends Post {
   const factory _Post(
-          {required final String id,
+          {final String? id,
           required final String content,
           required final String postAccountId,
           @DateTimeTimestampConverter() required final DateTime createdTime}) =
@@ -199,7 +199,7 @@ abstract class _Post extends Post {
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @override
   String get content => throw _privateConstructorUsedError;
   @override
