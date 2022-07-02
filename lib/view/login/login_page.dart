@@ -89,6 +89,14 @@ class LoginPage extends HookConsumerWidget {
                     }
                   },
                   child: const Text("emailログイン")),
+              ElevatedButton(
+                  onPressed: () async {
+                    final account = await ref
+                        .read(accountRepositoryProvider)
+                        .getUser(uid: "XBRy6aNphOMArsxbDLd7SBOPp6M2");
+                    ref.read(accountController.notifier).state = account;
+                  },
+                  child: const Text("テストユーザーでログイン")),
             ],
           ),
         ),
