@@ -42,6 +42,7 @@ class AccountController extends StateNotifier<Account?> {
       imagePath: accountImagePath,
       selfIntroduction: selfIntroduction,
       createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
     await _read(accountRepositoryProvider).createAccount(account: account);
     state = account;

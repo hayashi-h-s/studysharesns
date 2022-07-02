@@ -12,12 +12,10 @@ _$_Account _$$_AccountFromJson(Map<String, dynamic> json) => _$_Account(
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
       selfIntroduction: json['selfIntroduction'] as String? ?? "",
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: const DateTimeTimestampConverter()
+          .fromJson(json['createdAt'] as Timestamp),
+      updatedAt: const DateTimeTimestampConverter()
+          .fromJson(json['updatedAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$$_AccountToJson(_$_Account instance) =>
@@ -27,6 +25,8 @@ Map<String, dynamic> _$$_AccountToJson(_$_Account instance) =>
       'name': instance.name,
       'imagePath': instance.imagePath,
       'selfIntroduction': instance.selfIntroduction,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createdAt':
+          const DateTimeTimestampConverter().toJson(instance.createdAt),
+      'updatedAt':
+          const DateTimeTimestampConverter().toJson(instance.updatedAt),
     };

@@ -26,9 +26,9 @@ mixin _$Account {
   String get imagePath => throw _privateConstructorUsedError;
   String get selfIntroduction => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @DateTimeTimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,8 +45,8 @@ abstract class $AccountCopyWith<$Res> {
       String name,
       String imagePath,
       String selfIntroduction,
-      @DateTimeTimestampConverter() DateTime? createdAt,
-      @DateTimeTimestampConverter() DateTime? updatedAt});
+      @DateTimeTimestampConverter() DateTime createdAt,
+      @DateTimeTimestampConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -91,11 +91,11 @@ class _$AccountCopyWithImpl<$Res> implements $AccountCopyWith<$Res> {
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -112,8 +112,8 @@ abstract class _$$_AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
       String name,
       String imagePath,
       String selfIntroduction,
-      @DateTimeTimestampConverter() DateTime? createdAt,
-      @DateTimeTimestampConverter() DateTime? updatedAt});
+      @DateTimeTimestampConverter() DateTime createdAt,
+      @DateTimeTimestampConverter() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -159,11 +159,11 @@ class __$$_AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -177,8 +177,8 @@ class _$_Account extends _Account {
       required this.name,
       required this.imagePath,
       this.selfIntroduction = "",
-      @DateTimeTimestampConverter() this.createdAt,
-      @DateTimeTimestampConverter() this.updatedAt})
+      @DateTimeTimestampConverter() required this.createdAt,
+      @DateTimeTimestampConverter() required this.updatedAt})
       : super._();
 
   factory _$_Account.fromJson(Map<String, dynamic> json) =>
@@ -197,10 +197,10 @@ class _$_Account extends _Account {
   final String selfIntroduction;
   @override
   @DateTimeTimestampConverter()
-  final DateTime? createdAt;
+  final DateTime createdAt;
   @override
   @DateTimeTimestampConverter()
-  final DateTime? updatedAt;
+  final DateTime updatedAt;
 
   @override
   String toString() {
@@ -247,13 +247,14 @@ class _$_Account extends _Account {
 
 abstract class _Account extends Account {
   const factory _Account(
-      {final String? id,
-      required final String userId,
-      required final String name,
-      required final String imagePath,
-      final String selfIntroduction,
-      @DateTimeTimestampConverter() final DateTime? createdAt,
-      @DateTimeTimestampConverter() final DateTime? updatedAt}) = _$_Account;
+          {final String? id,
+          required final String userId,
+          required final String name,
+          required final String imagePath,
+          final String selfIntroduction,
+          @DateTimeTimestampConverter() required final DateTime createdAt,
+          @DateTimeTimestampConverter() required final DateTime updatedAt}) =
+      _$_Account;
   const _Account._() : super._();
 
   factory _Account.fromJson(Map<String, dynamic> json) = _$_Account.fromJson;
@@ -270,10 +271,10 @@ abstract class _Account extends Account {
   String get selfIntroduction => throw _privateConstructorUsedError;
   @override
   @DateTimeTimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   @DateTimeTimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_AccountCopyWith<_$_Account> get copyWith =>

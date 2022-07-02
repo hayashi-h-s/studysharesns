@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:studysharesns/utils/Authentication.dart';
-import 'package:studysharesns/utils/firestore/user_firestore.dart';
 import 'package:studysharesns/view/login/login_page.dart';
 
 import '../../model/account/account.dart';
@@ -108,19 +107,20 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       } else {
                         imagePath = myAccount!.imagePath;
                       }
-                      Account updateAccount = Account(
-                        id: myAccount!.id,
-                        userId: userIdController.text,
-                        name: nameController.text,
-                        imagePath: imagePath,
-                        selfIntroduction: selfIntroductionController.text,
-                      );
-                      Authentication.myAccount = updateAccount;
-                      var resultUpdateUser =
-                          await UserFireStore.updateUser(updateAccount);
-                      if (resultUpdateUser == true) {
-                        Navigator.pop(context, true);
-                      }
+                      // TODO: ユーザー編集処理修正時に修正
+                      // Account updateAccount = Account(
+                      //   id: myAccount!.id,
+                      //   userId: userIdController.text,
+                      //   name: nameController.text,
+                      //   imagePath: imagePath,
+                      //   selfIntroduction: selfIntroductionController.text,
+                      // );
+                      // Authentication.myAccount = updateAccount;
+                      // var resultUpdateUser =
+                      //     await UserFireStore.updateUser(updateAccount);
+                      // if (resultUpdateUser == true) {
+                      //   Navigator.pop(context, true);
+                      // }
                     }
                   },
                   child: const Text("更新"),

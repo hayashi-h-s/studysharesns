@@ -15,28 +15,14 @@ class Account with _$Account {
     required String name,
     required String imagePath,
     @Default("") String selfIntroduction,
-    @DateTimeTimestampConverter() DateTime? createdAt,
-    @DateTimeTimestampConverter() DateTime? updatedAt,
+    @DateTimeTimestampConverter() required DateTime createdAt,
+    @DateTimeTimestampConverter() required DateTime updatedAt,
   }) = _Account;
-
   factory Account.fromJson(Map<String, dynamic> json) =>
       _$AccountFromJson(json);
-
   factory Account.fromDocument(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
-    Timestamp createdAt = data["createdAt"];
-    Timestamp updatedAt = data["updatedAt"];
-    Account myAccount = Account(
-      id: doc.id,
-      userId: data["user_id"],
-      name: data["name"],
-      imagePath: data["image_path"],
-      selfIntroduction: data["self_introduction"],
-      createdAt: createdAt.toDate(),
-      updatedAt: updatedAt.toDate(),
-    );
-    return myAccount;
+    return Account.fromJson(data).copyWith(id: doc.id);
   }
-
   Map<String, dynamic> toDocument() => toJson()..remove('id');
 }

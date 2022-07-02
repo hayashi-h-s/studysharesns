@@ -39,11 +39,11 @@ class AccountRepository implements BaseAccountRepository {
           .doc(account.id)
           .set({
         "name": account.name,
-        "user_id": account.userId,
-        "self_introduction": account.selfIntroduction,
-        "image_path": account.imagePath,
-        "created_time": Timestamp.now(),
-        "updated_time": Timestamp.now(),
+        "userId": account.userId,
+        "selfIntroduction": account.selfIntroduction,
+        "imagePath": account.imagePath,
+        "createdAt": Timestamp.now(),
+        "updatedAt": Timestamp.now(),
       });
     } catch (e) {
       throw e.toString();
@@ -79,19 +79,7 @@ class AccountRepository implements BaseAccountRepository {
   Future<Account> getUser({required String uid}) async {
     DocumentSnapshot documentSnapshot =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
-    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-    final createdAt = data["created_time"] as Timestamp;
-    final updatedAt = data["updated_time"] as Timestamp;
-    Account myAccount = Account(
-      id: uid,
-      userId: data["user_id"],
-      name: data["name"],
-      imagePath: data["image_path"],
-      selfIntroduction: data["self_introduction"],
-      createdAt: createdAt.toDate(),
-      updatedAt: updatedAt.toDate(),
-    );
-    return myAccount;
+    return Account.fromDocument(documentSnapshot);
   }
 
   @override
