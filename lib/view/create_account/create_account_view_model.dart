@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/provider/provider.dart';
 
-import '../../controller/account_controller.dart';
+import '../../controller/account_controller/account_controller.dart';
 import '../../utils/log_util.dart';
 
 part 'create_account_view_model.freezed.dart';
