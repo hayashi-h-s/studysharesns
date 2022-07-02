@@ -8,14 +8,14 @@ import 'package:studysharesns/view/edit_account/edit_account_page.dart';
 import '../../model/account/account.dart';
 import '../../model/post/post.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+class MyAccountPage extends StatefulWidget {
+  const MyAccountPage({Key? key}) : super(key: key);
 
   @override
-  _AccountPageState createState() => _AccountPageState();
+  _MyAccountPageState createState() => _MyAccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _MyAccountPageState extends State<MyAccountPage> {
   Account myAccount = Authentication.myAccount!;
   @override
   Widget build(BuildContext context) {
