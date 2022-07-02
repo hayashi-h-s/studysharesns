@@ -70,7 +70,7 @@ class _PostIndexPageState extends State<PostIndexPage> {
                               id: postSnapshot.data!.docs[index].id,
                               content: data["content"],
                               postAccountId: data["post_account_id"],
-                              createdTime: data["created_time"],
+                              createdAt: data["createdAt"],
                             );
                             Account postAccount =
                                 userSnapshot.data![post.postAccountId]!;
