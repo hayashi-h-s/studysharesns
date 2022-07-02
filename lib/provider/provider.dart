@@ -5,9 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../controller/account_controller/account_controller.dart';
 import '../controller/picker_controller/picker_controller.dart';
-import '../controller/post_controller/post_controller.dart';
 import '../model/account/account.dart';
-import '../model/post/post.dart';
 import '../repository/account_repository.dart';
 
 // Firebase region start
@@ -27,9 +25,6 @@ final accountController =
   return AccountController(ref.read);
 });
 
-final postController = StateNotifierProvider<PostController, Post?>((ref) {
-  return PostController(ref.read);
-});
 //endregion
 
 // repository region start

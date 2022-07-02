@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studysharesns/provider/provider.dart';
+import 'package:studysharesns/utils/log_util.dart';
 
 import '../../../controller/post_controller/post_controller.dart';
 
@@ -13,7 +13,9 @@ final addPostPageProvider =
 
 @freezed
 class AddPostPageState with _$AddPostPageState {
-  const factory AddPostPageState() = _PostPageState;
+  const factory AddPostPageState({
+    @Default(false) bool isPosted,
+  }) = _AddPostPageState;
 }
 
 class AddPostPageProvider extends StateNotifier<AddPostPageState> {
@@ -23,10 +25,15 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
 
   final PostController _postController;
 
-  Future<void> onPressedPostButton({
+  void onPressedPostButton({
     required String content,
     required String postUserId,
   }) async {
-    _postController.addPost(content: content, postUserId: postUserId);
+    try {
+      await _postController.addPost(content: content, postUserId: postUserId);
+      state = state.copyWith(isPosted: true);
+    } catch (e) {
+      LogUtils.outputLog("onPressedPostButton 失敗 -> $e");
+    }
   }
 }

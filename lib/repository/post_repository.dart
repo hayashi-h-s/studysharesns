@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studysharesns/utils/log_util.dart';
 
 import '../materials/item_repository.dart';
 import '../model/post/post.dart';
@@ -7,7 +8,7 @@ final postRepositoryProvider =
     Provider<PostRepository>((ref) => PostRepository(ref.read));
 
 abstract class BasePostRepository {
-  Future<void> addPost({required Post post});
+  Future<String> createPost({required Post post});
 }
 
 class PostRepository implements BasePostRepository {
@@ -16,15 +17,17 @@ class PostRepository implements BasePostRepository {
   const PostRepository(this._read);
 
   @override
-  Future<void> addPost({
+  Future<String> createPost({
     required Post post,
   }) async {
     try {
       try {
-        await _read(firebaseFirestoreProvider)
+        final docRef = await _read(firebaseFirestoreProvider)
             .collection('posts')
             .add(post.toDocument());
+        return docRef.id;
       } catch (e) {
+        LogUtils.outputLog("createPost -> 失敗 $e");
         throw e.toString();
       }
     } catch (e) {

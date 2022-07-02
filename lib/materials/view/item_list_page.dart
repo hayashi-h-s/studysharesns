@@ -16,6 +16,13 @@ class ItemListPage extends HookConsumerWidget {
     final itemList = ref.watch(itemListProvider);
     // provider（状態の操作）
     final itemListNotifier = ref.watch(itemListProvider.notifier);
+
+    ref.listen(itemListProvider, (previous, next) {
+      print("【FlutterLog】previous =${previous}");
+
+      print("【FlutterLog】itemListProvider =${next}");
+    });
+
     return Scaffold(
       appBar: AppBar(title: const Text('CRUD APP')),
       // itemList = AsyncValue

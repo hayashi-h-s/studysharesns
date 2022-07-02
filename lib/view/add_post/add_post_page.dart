@@ -12,6 +12,13 @@ class AddPostPage extends HookConsumerWidget {
     final contentController = TextEditingController();
     final accountProvider = ref.watch(accountController);
     final postPageViewModel = ref.watch(addPostPageProvider.notifier);
+
+    ref.listen<AddPostPageState>(addPostPageProvider, (previous, next) {
+      if (next.isPosted) {
+        Navigator.pop(context);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
