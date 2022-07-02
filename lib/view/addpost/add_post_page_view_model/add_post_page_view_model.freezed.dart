@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'post_page_view_model.dart';
+part of 'add_post_page_view_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,23 +15,23 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PostPageState {}
+mixin _$AddPostPageState {}
 
 /// @nodoc
-abstract class $PostPageStateCopyWith<$Res> {
-  factory $PostPageStateCopyWith(
-          PostPageState value, $Res Function(PostPageState) then) =
-      _$PostPageStateCopyWithImpl<$Res>;
+abstract class $AddPostPageStateCopyWith<$Res> {
+  factory $AddPostPageStateCopyWith(
+          AddPostPageState value, $Res Function(AddPostPageState) then) =
+      _$AddPostPageStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PostPageStateCopyWithImpl<$Res>
-    implements $PostPageStateCopyWith<$Res> {
-  _$PostPageStateCopyWithImpl(this._value, this._then);
+class _$AddPostPageStateCopyWithImpl<$Res>
+    implements $AddPostPageStateCopyWith<$Res> {
+  _$AddPostPageStateCopyWithImpl(this._value, this._then);
 
-  final PostPageState _value;
+  final AddPostPageState _value;
   // ignore: unused_field
-  final $Res Function(PostPageState) _then;
+  final $Res Function(AddPostPageState) _then;
 }
 
 /// @nodoc
@@ -43,7 +43,7 @@ abstract class _$$_PostPageStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_PostPageStateCopyWithImpl<$Res>
-    extends _$PostPageStateCopyWithImpl<$Res>
+    extends _$AddPostPageStateCopyWithImpl<$Res>
     implements _$$_PostPageStateCopyWith<$Res> {
   __$$_PostPageStateCopyWithImpl(
       _$_PostPageState _value, $Res Function(_$_PostPageState) _then)
@@ -60,7 +60,7 @@ class _$_PostPageState implements _PostPageState {
 
   @override
   String toString() {
-    return 'PostPageState()';
+    return 'AddPostPageState()';
   }
 
   @override
@@ -73,6 +73,6 @@ class _$_PostPageState implements _PostPageState {
   int get hashCode => runtimeType.hashCode;
 }
 
-abstract class _PostPageState implements PostPageState {
+abstract class _PostPageState implements AddPostPageState {
   const factory _PostPageState() = _$_PostPageState;
 }

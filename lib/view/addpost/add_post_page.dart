@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studysharesns/view/post/post_page_view_model/post_page_view_model.dart';
 
-class PostPage extends HookConsumerWidget {
-  PostPage({Key? key}) : super(key: key);
+import 'add_post_page_view_model/add_post_page_view_model.dart';
+
+class AddPostPage extends HookConsumerWidget {
+  AddPostPage({Key? key}) : super(key: key);
 
   final contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final postPageViewModel = ref.watch(postPageProvider.notifier);
+    final postPageViewModel = ref.watch(addPostPageProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -30,10 +31,12 @@ class PostPage extends HookConsumerWidget {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () async {
-                postPageViewModel.onPressedPostButton();
-
                 // TODO:投稿処理修正時に修正
-                // if (contentController.text.isNotEmpty) {
+                if (contentController.text.isEmpty) return;
+
+                postPageViewModel.onPressedPostButton(
+                    content: contentController.text);
+
                 //   Post newPost = Post(
                 //     content: contentController.text,
                 //     postAccountId: Authentication.myAccount!.id!,
@@ -42,7 +45,6 @@ class PostPage extends HookConsumerWidget {
                 //   if (result) {
                 //     Navigator.pop(context);
                 //   }
-                // }
               },
               child: const Text("投稿"),
             )

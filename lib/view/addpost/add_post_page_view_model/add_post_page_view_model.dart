@@ -4,33 +4,31 @@ import 'package:studysharesns/provider/provider.dart';
 
 import '../../../controller/post_controller/post_controller.dart';
 
-part 'post_page_view_model.freezed.dart';
+part 'add_post_page_view_model.freezed.dart';
 
-final postPageProvider = StateNotifierProvider<PostPageProvider, PostPageState>(
-  (ref) => PostPageProvider(ref.watch(postController.notifier)),
+final addPostPageProvider =
+    StateNotifierProvider<AddPostPageProvider, AddPostPageState>(
+  (ref) => AddPostPageProvider(ref.watch(postController.notifier)),
 );
 
 @freezed
-class PostPageState with _$PostPageState {
-  const factory PostPageState() = _PostPageState;
+class AddPostPageState with _$AddPostPageState {
+  const factory AddPostPageState() = _PostPageState;
 }
 
-class PostPageProvider extends StateNotifier<PostPageState> {
-  PostPageProvider(
+class AddPostPageProvider extends StateNotifier<AddPostPageState> {
+  AddPostPageProvider(
     this._postController,
-  ) : super(const PostPageState());
+  ) : super(const AddPostPageState());
 
   final PostController _postController;
 
-  Future<void> onPressedPostButton(
-      // {required String email,
-      //   required String pass,
-      //   required String userId,
-      //   required String name,
-      //   required File imageFile,
-      //   required String selfIntroduction}
-      ) async {
-    print("【FlutterLog】onPressedPostButton ");
+  Future<void> onPressedPostButton({
+    required String content,
+  }) async {
+    print("【FlutterLog】content = $content ");
+    // _postController.addPost(
+
     // try {
     //   await _accountController.createAccount(
     //       email: email,

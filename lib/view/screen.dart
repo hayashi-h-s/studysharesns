@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:studysharesns/materials/view/item_list_page.dart';
-import 'package:studysharesns/view/post/post_page.dart';
 import 'package:studysharesns/view/post_index/posts_index_page.dart';
 
 import 'account/account_page.dart';
+import 'addpost/add_post_page.dart';
 
 class Screen extends StatefulWidget {
   const Screen({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class _ScreenState extends State<Screen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => PostPage()));
+              context, MaterialPageRoute(builder: (context) => AddPostPage()));
         },
         child: const Icon(Icons.article),
       ),
