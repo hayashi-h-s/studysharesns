@@ -6,6 +6,11 @@ import 'package:image_picker/image_picker.dart';
 
 part 'picker_controller.freezed.dart';
 
+final pickerProvider =
+    StateNotifierProvider.autoDispose<PickerController, PickerState>((ref) {
+  return PickerController();
+});
+
 @freezed
 class PickerState with _$PickerState {
   const factory PickerState({

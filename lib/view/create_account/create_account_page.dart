@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studysharesns/view/create_account/create_account_view_model.dart';
 
+import '../../controller/picker_controller/picker_controller.dart';
 import '../../model/account/account.dart';
 import '../../provider/provider.dart';
 import '../screen.dart';
@@ -64,7 +65,7 @@ class CreateAccountPage extends HookConsumerWidget {
               ),
               SizedBox(
                 width: 300,
-                child: TextField(
+                child: TextField
                   controller: nameController,
                   decoration: const InputDecoration(hintText: "名前"),
                 ),
