@@ -63,4 +63,21 @@ class AccountController extends StateNotifier<Account?> {
       // TODO: エラー処理
     }
   }
+
+  Future<void> uploadAccountImage({
+    required File file,
+    required String uid,
+  }) async {
+    try {
+      _read(accountRepositoryProvider).uploadAccountImage(file: file, uid: uid);
+      // UserCredential signInAccount = await _read(accountRepositoryProvider)
+      //     .emailSignIn(email: email, pass: pass);
+      // final myAccount = await _read(accountRepositoryProvider)
+      //     .getUser(uid: signInAccount.user!.uid); // TODO: !で問題ないか？エラー処理すればいいのか？
+      // state = myAccount;
+    } on Exception catch (e) {
+      LogUtils.outputLog("ログイン失敗");
+      // TODO: エラー処理
+    }
+  }
 }
