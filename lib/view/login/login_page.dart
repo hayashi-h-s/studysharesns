@@ -93,7 +93,7 @@ class LoginPage extends HookConsumerWidget {
                   onPressed: () async {
                     final account = await ref
                         .read(accountRepositoryProvider)
-                        .getUser(uid: "XBRy6aNphOMArsxbDLd7SBOPp6M2");
+                        .getUser(uid: "OWBCIl1wLmZdoKtAFtIIqq51Qnt2");
                     ref.read(accountController.notifier).state = account;
                   },
                   child: const Text("テストユーザーでログイン")),
