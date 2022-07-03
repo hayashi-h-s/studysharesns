@@ -65,7 +65,7 @@ class CreateAccountPage extends HookConsumerWidget {
               ),
               SizedBox(
                 width: 300,
-                child: TextField
+                child: TextField(
                   controller: nameController,
                   decoration: const InputDecoration(hintText: "名前"),
                 ),
