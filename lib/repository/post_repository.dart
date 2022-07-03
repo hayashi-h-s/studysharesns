@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
 
@@ -9,6 +10,8 @@ final postRepositoryProvider =
 
 abstract class BasePostRepository {
   Future<String> createPost({required Post post});
+
+  Future<void> createMyPost({required Post post, required String postId});
 
   Future<List<Post>> getPosts();
 }
@@ -23,16 +26,30 @@ class PostRepository implements BasePostRepository {
     required Post post,
   }) async {
     try {
-      try {
-        final docRef = await _read(firebaseFirestoreProvider)
-            .collection('posts')
-            .add(post.toDocument());
-        return docRef.id;
-      } catch (e) {
-        LogUtils.outputLog("createPost -> 失敗 $e");
-        throw e.toString();
-      }
+      final docRef = await _read(firebaseFirestoreProvider)
+          .collection('posts')
+          .add(post.toDocument());
+      return docRef.id;
     } catch (e) {
+      LogUtils.outputLog("createPost -> 失敗 $e");
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<void> createMyPost({
+    required Post post,
+    required String postId,
+  }) async {
+    try {
+      _read(firebaseFirestoreProvider)
+          .collection("users")
+          .doc(post.postAccountId)
+          .collection("my_posts")
+          .doc(postId)
+          .set({"post_id": postId, "createdAt": Timestamp.now()});
+    } catch (e) {
+      LogUtils.outputLog("createPost -> 失敗 $e");
       throw e.toString();
     }
   }

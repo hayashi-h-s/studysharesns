@@ -80,14 +80,11 @@ class AccountRepository implements BaseAccountRepository {
   @override
   Future<Account> getUser({required String uid}) async {
     try {
-      DocumentSnapshot documentSnapshot =
+      final documentSnapshot =
           await FirebaseFirestore.instance.collection("users").doc(uid).get();
-
-      print("【FlutterLog】documentSnapshot =${documentSnapshot}");
-
       return Account.fromDocument(documentSnapshot);
     } catch (e) {
-      LogUtils.outputLog("emailSignIn失敗 -> $e ");
+      LogUtils.outputLog("getUser失敗 -> $e ");
       throw e.toString();
     }
   }
