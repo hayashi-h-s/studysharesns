@@ -14,6 +14,10 @@ abstract class BasePostRepository {
   Future<void> createMyPost({required Post post, required String postId});
 
   Future<List<Post>> getPosts();
+
+  Future<List<Post>> getMyPosts();
+
+  Future<List<Post>> getPostsFromIds(List<String> ids);
 }
 
 class PostRepository implements BasePostRepository {
@@ -64,6 +68,43 @@ class PostRepository implements BasePostRepository {
       return snap.docs.map((doc) => Post.fromDocument(doc)).toList();
     } catch (e) {
       // 本来は例外処理をした方が良いですが、簡潔にするため省略しています
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<List<Post>> getMyPosts() async {
+    try {
+      final snapShot = await _read(firebaseFirestoreProvider)
+          .collection('users')
+          .doc("OWBCIl1wLmZdoKtAFtIIqq51Qnt2")
+          .collection("my_posts")
+          .orderBy("createdAt", descending: true)
+          .get();
+      List<String> myPostIds = List.generate(snapShot.docs.length, (index) {
+        return snapShot.docs[index].id;
+      });
+      return await getPostsFromIds(myPostIds);
+    } catch (e) {
+      LogUtils.outputLog("getMyPosts失敗 -> $e");
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<List<Post>> getPostsFromIds(List<String> ids) async {
+    try {
+      var posts = <Post>[];
+      await Future.forEach(ids, (String id) async {
+        var doc = await _read(firebaseFirestoreProvider)
+            .collection("posts")
+            .doc(id)
+            .get();
+        posts.add(Post.fromDocument(doc));
+      });
+      return posts;
+    } catch (e) {
+      LogUtils.outputLog("getPostsFromIds失敗 $e");
       throw e.toString();
     }
   }

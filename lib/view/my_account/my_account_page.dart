@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studysharesns/controller/my_post_list_controller/my_post_list_controller.dart';
 import 'package:studysharesns/provider/provider.dart';
 import 'package:studysharesns/utils/firestore/post_firestore.dart';
 import 'package:studysharesns/utils/firestore/user_firestore.dart';
@@ -13,6 +14,7 @@ class MyAccountPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myAccount = ref.watch(accountController);
+    final myPostList = ref.watch(myPostListProvider);
     return Scaffold(
       body: myAccount == null
           ? const Text("ユーザー情報がありません。") // TODO: 後に修正予定
