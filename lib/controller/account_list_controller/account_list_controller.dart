@@ -25,7 +25,6 @@ class AccountListController extends StateNotifier<AsyncValue<List<Account>>> {
   AccountListController(this._read) : super(const AsyncValue.loading());
 
   Future<void> getPostUsers(List<String> postAccountIds) async {
-    // TODO: postAccountIdsからUsersを取得
     final postAccounts = await _read(accountRepositoryProvider)
         .getPostUsers(postAccountIds: postAccountIds);
     if (mounted) {

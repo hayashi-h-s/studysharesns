@@ -37,7 +37,7 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
           postAccountIds.add(post.postAccountId);
         }
       }
-      _read(accountListProvider.notifier).getPostUsers(postAccountIds);
+      await _read(accountListProvider.notifier).getPostUsers(postAccountIds);
       if (mounted) {
         state = AsyncValue.data(posts);
       }
