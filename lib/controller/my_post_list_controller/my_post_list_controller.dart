@@ -1,7 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../model/account/account.dart';
 import '../../model/post/post.dart';
+import '../../provider/provider.dart';
 import '../../repository/post_repository.dart';
 import '../../utils/log_util.dart';
 
@@ -21,15 +23,18 @@ class MyPostListState with _$MyPostListState {
 
 class MyPostListController extends StateNotifier<AsyncValue<List<Post>>> {
   final Reader _read;
+  Account? account;
 
   MyPostListController(this._read) : super(const AsyncValue.loading()) {
+    account = _read(accountController);
     getMyPosts();
   }
 
   Future<void> getMyPosts({bool isRefreshing = false}) async {
     if (isRefreshing) state = const AsyncValue.loading();
     try {
-      final posts = await _read(postRepositoryProvider).getMyPosts();
+      final posts =
+          await _read(postRepositoryProvider).getMyPosts(account: account!);
       if (mounted) {
         state = AsyncValue.data(posts);
       }

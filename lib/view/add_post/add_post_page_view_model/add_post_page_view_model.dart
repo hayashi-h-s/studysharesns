@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
 
 import '../../../controller/post_list_controller/post_list_controller.dart';
+import '../../../model/account/account.dart';
 
 part 'add_post_page_view_model.freezed.dart';
 
@@ -27,10 +28,10 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
 
   void onPressedPostButton({
     required String content,
-    required String postUserId,
+    required Account account,
   }) async {
     try {
-      await _postController.addPost(content: content, postUserId: postUserId);
+      await _postController.addPost(content: content, account: account);
       state = state.copyWith(isPosted: true);
     } catch (e) {
       LogUtils.outputLog("onPressedPostButton 失敗 -> $e");

@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/controller/account_list_controller/account_list_controller.dart';
 import 'package:studysharesns/repository/post_repository.dart';
 
+import '../../model/account/account.dart';
 import '../../model/post/post.dart';
 import '../../utils/log_util.dart';
 
@@ -48,17 +49,19 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
 
   Future<void> addPost({
     required String content,
-    required String postUserId,
+    required Account account,
   }) async {
     try {
       final post = Post(
         content: content,
-        postAccountId: postUserId,
+        postAccountId: account.id as String,
         createdAt: DateTime.now(),
       );
       final postId = await _read(postRepositoryProvider).createPost(post: post);
       await _read(postRepositoryProvider)
           .createMyPost(post: post, postId: postId);
+      await _read(accountListProvider.notifier).addPostUser(myAccount: account);
+
       state.whenData(
         (posts) => state = AsyncValue.data(
           posts..add(post.copyWith(id: postId)),
