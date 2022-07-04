@@ -18,6 +18,7 @@ class EditAccountPage extends HookConsumerWidget {
     final editAccountPageViewModel =
         ref.watch(editAccountPageProvider.notifier);
     final imageFile = ref.watch(pickerProvider.select((s) => s.imageFile));
+
     final nameController = TextEditingController(text: myAccount?.name);
     final userIdController = TextEditingController(text: myAccount?.userId);
     final selfIntroductionController =
@@ -49,42 +50,12 @@ class EditAccountPage extends HookConsumerWidget {
                         await ref
                             .read(pickerProvider.notifier)
                             .pickImage(image);
-                        // var pickedFile = await FunctionUtils.getImageFromGallery();
-                        // if (pickedFile != null) {
-                        //   setState(() {
-                        //     fileImage = File(pickedFile.path);
-                        //   });
-                        // }
                       },
                       child: CircleAvatar(
                         radius: 40,
-                        // foregroundImage: imageFile != null
-                        //     ? NetworkImage(myAccount.imagePath)
-                        //     : FileImage(imageFile),
-
-                        // foregroundImage:NetworkImage(myAccount.imagePath),
                         foregroundImage: imageFile == null
                             ? NetworkImage(myAccount.imagePath) as ImageProvider
                             : FileImage(imageFile),
-                        // :NetworkImage(myAccount.imagePath),
-//
-//                         imageFile == null
-//                             ? NetworkImage(myAccount.imagePath)
-//                             : ,
-// // Ca
-// //                        CachedNetworkImageProvider
-//                         backgroundImage: (
-//                           // cardUser.profileImageURL,
-//                         ),
-
-                        // foregroundImage:
-                        //     imageFile == null ? NetworkImage(myAccount.imagePath) : FileImage(imageFile),
-                        //
-                        //
-                        // backgroundImage: imageFile == null
-                        //     ? NetworkImage(myAccount.imagePath)
-                        //     : FileImage(imageFile),
-
                         child: const Icon(Icons.add),
                       ),
                     ),
@@ -117,47 +88,16 @@ class EditAccountPage extends HookConsumerWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        if (nameController.text.isNotEmpty &&
-                            userIdController.text.isNotEmpty &&
-                            selfIntroductionController.text.isNotEmpty) {
-                          editAccountPageViewModel.onPressedUpdateAccountButton(
-                              uid: myAccount.id as String,
-                              imageFile: imageFile,
-                              userId: userIdController.text,
-                              name: nameController.text,
-                              selfIntroduction:
-                                  selfIntroductionController.text);
-
-                          // print("【FlutterLog】imageFile =${imageFile}");
-                          // if (imageFile != null) {
-                          //
-                          // }
-
-                          // var imagePath = "";
-                          // if (fileImage != null) {
-                          //   var result = await FunctionUtils.uploadImage(
-                          //       myAccount!.id!, fileImage!);
-                          //   if (result is String) {
-                          //     imagePath = result as String;
-                          //   }
-                          // } else {
-                          //   imagePath = myAccount!.imagePath;
-                          // }
-                          // TODO: ユーザー編集処理修正時に修正
-                          // Account updateAccount = Account(
-                          //   id: myAccount!.id,
-                          //   userId: userIdController.text,
-                          //   name: nameController.text,
-                          //   imagePath: imagePath,
-                          //   selfIntroduction: selfIntroductionController.text,
-                          // );
-                          // Authentication.myAccount = updateAccount;
-                          // var resultUpdateUser =
-                          //     await UserFireStore.updateUser(updateAccount);
-                          // if (resultUpdateUser == true) {
-                          //   Navigator.pop(context, true);
-                          // }
-                        }
+                        if (nameController.text.isEmpty &&
+                            userIdController.text.isEmpty &&
+                            selfIntroductionController.text.isEmpty &&
+                            imageFile == null) return;
+                        final updateAccount = myAccount.copyWith(
+                            name: nameController.text,
+                            userId: userIdController.text,
+                            selfIntroduction: selfIntroductionController.text);
+                        editAccountPageViewModel.onPressedUpdateAccountButton(
+                            account: updateAccount, imageFile: imageFile);
                       },
                       child: const Text("更新"),
                     ),

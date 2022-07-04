@@ -70,14 +70,32 @@ class AccountController extends StateNotifier<Account?> {
   }) async {
     try {
       _read(accountRepositoryProvider).uploadAccountImage(file: file, uid: uid);
-      // UserCredential signInAccount = await _read(accountRepositoryProvider)
-      //     .emailSignIn(email: email, pass: pass);
-      // final myAccount = await _read(accountRepositoryProvider)
-      //     .getUser(uid: signInAccount.user!.uid); // TODO: !で問題ないか？エラー処理すればいいのか？
-      // state = myAccount;
     } on Exception catch (e) {
-      LogUtils.outputLog("ログイン失敗");
+      LogUtils.outputLog("uploadAccountImage失敗 $e");
       // TODO: エラー処理
+    }
+  }
+
+  Future<void> updateAccount({required Account account}) async {
+    try {
+      print(
+          "【FlutterLog】Future<void> updateAccount({required Account account}) async { =${account.name}");
+
+      await _read(accountRepositoryProvider).updateAccount(account: account);
+      state = account;
+      LogUtils.outputLog("updateAccount成功");
+    } on Exception catch (e) {
+      LogUtils.outputLog("updateAccount失敗 $e");
+      // TODO: エラー処理
+    }
+  }
+
+  Future<String?> getAccountImagePath({required String uid}) async {
+    try {
+      return await _read(accountRepositoryProvider).getAccountImage(uid: uid);
+    } on Exception catch (e) {
+      LogUtils.outputLog("アカウント画像取得失敗 $e");
+      return null;
     }
   }
 }

@@ -24,6 +24,8 @@ abstract class BaseAccountRepository {
   Future<void> uploadAccountImage({required File file, required String? uid});
 
   Future<String> getAccountImage({required String? uid});
+
+  Future<void> updateAccount({required Account account});
 }
 
 class AccountRepository implements BaseAccountRepository {
@@ -114,7 +116,6 @@ class AccountRepository implements BaseAccountRepository {
           .ref()
           .child("users/$uid")
           .putFile(file);
-      LogUtils.outputLog("アカウント画像登録成功");
     } catch (e) {
       LogUtils.outputLog("アカウント画像登録失敗");
       throw e.toString();
@@ -129,6 +130,26 @@ class AccountRepository implements BaseAccountRepository {
           .getDownloadURL();
     } catch (e) {
       LogUtils.outputLog("アカウント画像取得失敗");
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<void> updateAccount({required Account account}) async {
+    try {
+      await _read(firebaseFirestoreProvider)
+          .collection("users")
+          .doc(account.id as String)
+          .update({
+        "name": account.name,
+        "userId": account.userId,
+        "selfIntroduction": account.selfIntroduction,
+        "imagePath": account.imagePath,
+        "updatedAt": Timestamp.now(),
+      });
+      LogUtils.outputLog("アカウント編集成功");
+    } catch (e) {
+      LogUtils.outputLog("アカウント編集失敗 $e");
       throw e.toString();
     }
   }
