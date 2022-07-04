@@ -49,4 +49,8 @@ class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
       // TODO: エラー処理
     }
   }
+
+  Future<void> onPressedSignOutButton() async {
+    await _accountController.signOut();
+  }
 }

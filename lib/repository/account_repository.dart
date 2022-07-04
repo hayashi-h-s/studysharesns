@@ -17,6 +17,8 @@ abstract class BaseAccountRepository {
   Future<UserCredential> emailSignIn(
       {required String email, required String pass});
 
+  Future<void> signOut();
+
   Future<Account> getUser({required String uid});
 
   Future<List<Account>> getPostUsers({required List<String> postAccountIds});
@@ -75,6 +77,17 @@ class AccountRepository implements BaseAccountRepository {
           .signInWithEmailAndPassword(email: email, password: pass);
     } catch (e) {
       LogUtils.outputLog("emailSignIn失敗 -> $e ");
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _read(firebaseFirebaseAuthProvider).signOut();
+      LogUtils.outputLog("signOut成功");
+    } catch (e) {
+      LogUtils.outputLog("signOut失敗 -> $e ");
       throw e.toString();
     }
   }

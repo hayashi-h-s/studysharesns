@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studysharesns/provider/provider.dart';
-import 'package:studysharesns/utils/Authentication.dart';
 import 'package:studysharesns/view/edit_account/edit_account_view_model/edit_account_page_view_model.dart';
 import 'package:studysharesns/view/login/login_page.dart';
 
 import '../../controller/picker_controller/picker_controller.dart';
+import '../../model/account/account.dart';
 import '../../utils/widget_utils.dart';
 
 class EditAccountPage extends HookConsumerWidget {
@@ -24,6 +24,23 @@ class EditAccountPage extends HookConsumerWidget {
         Navigator.pop(context);
       }
     });
+
+    ref.listen<Account?>(
+      accountController,
+      (previous, next) {
+        if (next == null) {
+          while (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
+        }
+      },
+    );
 
     final nameController = TextEditingController(text: myAccount?.name);
     final userIdController = TextEditingController(text: myAccount?.userId);
@@ -109,15 +126,7 @@ class EditAccountPage extends HookConsumerWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Authentication.signOut();
-                        while (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ));
+                        editAccountPageViewModel.onPressedSignOutButton();
                       },
                       child: const Text("ログアウト"),
                     )

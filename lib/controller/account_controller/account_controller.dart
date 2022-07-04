@@ -95,4 +95,14 @@ class AccountController extends StateNotifier<Account?> {
       return null;
     }
   }
+
+  Future<void> signOut() async {
+    try {
+      await _read(accountRepositoryProvider).signOut();
+      state = null;
+      LogUtils.outputLog("サインアウト成功");
+    } on Exception catch (e) {
+      LogUtils.outputLog("サインアウト失敗 $e");
+    }
+  }
 }
