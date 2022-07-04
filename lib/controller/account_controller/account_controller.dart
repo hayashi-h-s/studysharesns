@@ -78,9 +78,6 @@ class AccountController extends StateNotifier<Account?> {
 
   Future<void> updateAccount({required Account account}) async {
     try {
-      print(
-          "【FlutterLog】Future<void> updateAccount({required Account account}) async { =${account.name}");
-
       await _read(accountRepositoryProvider).updateAccount(account: account);
       state = account;
       LogUtils.outputLog("updateAccount成功");

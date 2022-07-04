@@ -19,6 +19,12 @@ class EditAccountPage extends HookConsumerWidget {
         ref.watch(editAccountPageProvider.notifier);
     final imageFile = ref.watch(pickerProvider.select((s) => s.imageFile));
 
+    ref.listen<EditAccountPageState>(editAccountPageProvider, (previous, next) {
+      if (next.isUpdated) {
+        Navigator.pop(context);
+      }
+    });
+
     final nameController = TextEditingController(text: myAccount?.name);
     final userIdController = TextEditingController(text: myAccount?.userId);
     final selfIntroductionController =

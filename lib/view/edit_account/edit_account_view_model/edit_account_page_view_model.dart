@@ -19,7 +19,9 @@ final editAccountPageProvider =
 
 @freezed
 class EditAccountPageState with _$EditAccountPageState {
-  const factory EditAccountPageState() = _EditAccountPageState;
+  const factory EditAccountPageState({
+    @Default(false) bool isUpdated,
+  }) = _EditAccountPageState;
 }
 
 class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
@@ -40,6 +42,7 @@ class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
         account = account.copyWith(imagePath: imagePath!);
       }
       await _accountController.updateAccount(account: account);
+      state = state.copyWith(isUpdated: true);
       LogUtils.outputLog("アカウント編集成功");
     } on Exception catch (e) {
       LogUtils.outputLog("アカウント作成失敗");
