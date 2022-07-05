@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/controller/account_list_controller/account_list_controller.dart';
 import 'package:studysharesns/repository/post_repository.dart';
 
+import '../../materials/item_repository.dart';
 import '../../model/account/account.dart';
 import '../../model/post/post.dart';
 import '../../utils/log_util.dart';
@@ -31,17 +32,25 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
   Future<void> getPosts({bool isRefreshing = false}) async {
     if (isRefreshing) state = const AsyncValue.loading();
     try {
-      final posts = await _read(postRepositoryProvider).getPosts();
+      final snapshots = _read(firebaseFirestoreProvider)
+          .collection('posts')
+          .orderBy("createdAt", descending: true)
+          .snapshots();
       List<String> postAccountIds = [];
-      for (var post in posts) {
-        if (!postAccountIds.contains(post.postAccountId)) {
-          postAccountIds.add(post.postAccountId);
+      snapshots.listen((snapshot) async {
+        final posts =
+            snapshot.docs.map((doc) => Post.fromDocument(doc)).toList();
+        posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        for (var post in posts) {
+          if (!postAccountIds.contains(post.postAccountId)) {
+            postAccountIds.add(post.postAccountId);
+          }
         }
-      }
-      await _read(accountListProvider.notifier).getPostUsers(postAccountIds);
-      if (mounted) {
-        state = AsyncValue.data(posts);
-      }
+        await _read(accountListProvider.notifier).getPostUsers(postAccountIds);
+        if (mounted) {
+          state = AsyncValue.data(posts);
+        }
+      });
     } catch (e) {
       throw e.toString();
     }
