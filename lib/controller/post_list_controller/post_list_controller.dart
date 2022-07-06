@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/controller/account_list_controller/account_list_controller.dart';
+import 'package:studysharesns/controller/my_post_list_controller/my_post_list_controller.dart';
 import 'package:studysharesns/repository/post_repository.dart';
 
 import '../../materials/item_repository.dart';
@@ -70,7 +71,7 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
       await _read(postRepositoryProvider)
           .createMyPost(post: post, postId: postId);
       await _read(accountListProvider.notifier).addPostUser(myAccount: account);
-
+      await _read(myPostListProvider.notifier).getMyPosts();
       state.whenData(
         (posts) => state = AsyncValue.data(
           posts..add(post.copyWith(id: postId)),
