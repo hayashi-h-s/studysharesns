@@ -33,7 +33,12 @@ class LoginPage extends HookConsumerWidget {
         body: Stack(
           children: [
             if (loginPageSate.isLoading)
-              const Center(child: CircularProgressIndicator()),
+              Container(
+                color: Colors.black.withOpacity(0.3),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             SingleChildScrollView(
               child: SizedBox(
                 width: double.infinity,
