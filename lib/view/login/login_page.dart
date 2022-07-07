@@ -5,6 +5,7 @@ import 'package:studysharesns/view/screen.dart';
 
 import '../../model/account/account.dart';
 import '../../provider/provider.dart';
+import '../../utils/widget_utils.dart';
 import '../create_account/create_account_page.dart';
 import 'login_page_view_model.dart';
 
@@ -32,13 +33,7 @@ class LoginPage extends HookConsumerWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            if (loginPageSate.isLoading)
-              Container(
-                color: Colors.black.withOpacity(0.3),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+            if (loginPageSate.isLoading) WidgetUtils.createCircularProgress(),
             SingleChildScrollView(
               child: SizedBox(
                 width: double.infinity,

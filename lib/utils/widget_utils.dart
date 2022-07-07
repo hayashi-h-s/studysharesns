@@ -13,4 +13,13 @@ class WidgetUtils {
       centerTitle: true,
     );
   }
+
+  static Container createCircularProgress() {
+    return Container(
+      color: Colors.black.withOpacity(0.3),
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 }
