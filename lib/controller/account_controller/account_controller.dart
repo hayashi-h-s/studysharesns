@@ -52,16 +52,11 @@ class AccountController extends StateNotifier<Account?> {
     required String email,
     required String pass,
   }) async {
-    try {
-      UserCredential signInAccount = await _read(accountRepositoryProvider)
-          .emailSignIn(email: email, pass: pass);
-      final myAccount = await _read(accountRepositoryProvider)
-          .getUser(uid: signInAccount.user!.uid); // TODO: !で問題ないか？エラー処理すればいいのか？
-      state = myAccount;
-    } on Exception catch (e) {
-      LogUtils.outputLog("ログイン失敗");
-      // TODO: エラー処理
-    }
+    UserCredential signInAccount = await _read(accountRepositoryProvider)
+        .emailSignIn(email: email, pass: pass);
+    final myAccount = await _read(accountRepositoryProvider)
+        .getUser(uid: signInAccount.user!.uid); // TODO: !で問題ないか？エラー処理すればいいのか？
+    state = myAccount;
   }
 
   Future<void> uploadAccountImage({

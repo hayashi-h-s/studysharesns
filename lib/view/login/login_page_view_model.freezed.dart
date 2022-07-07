@@ -15,13 +15,20 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$LoginPageState {}
+mixin _$LoginPageState {
+  bool get isLoading => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LoginPageStateCopyWith<LoginPageState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
 
 /// @nodoc
 abstract class $LoginPageStateCopyWith<$Res> {
   factory $LoginPageStateCopyWith(
           LoginPageState value, $Res Function(LoginPageState) then) =
       _$LoginPageStateCopyWithImpl<$Res>;
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -32,13 +39,28 @@ class _$LoginPageStateCopyWithImpl<$Res>
   final LoginPageState _value;
   // ignore: unused_field
   final $Res Function(LoginPageState) _then;
+
+  @override
+  $Res call({
+    Object? isLoading = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$$_LoginPageStateCopyWith<$Res> {
+abstract class _$$_LoginPageStateCopyWith<$Res>
+    implements $LoginPageStateCopyWith<$Res> {
   factory _$$_LoginPageStateCopyWith(
           _$_LoginPageState value, $Res Function(_$_LoginPageState) then) =
       __$$_LoginPageStateCopyWithImpl<$Res>;
+  @override
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -51,28 +73,59 @@ class __$$_LoginPageStateCopyWithImpl<$Res>
 
   @override
   _$_LoginPageState get _value => super._value as _$_LoginPageState;
+
+  @override
+  $Res call({
+    Object? isLoading = freezed,
+  }) {
+    return _then(_$_LoginPageState(
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_LoginPageState implements _LoginPageState {
-  const _$_LoginPageState();
+  const _$_LoginPageState({this.isLoading = false});
+
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'LoginPageState()';
+    return 'LoginPageState(isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoginPageState);
+        (other.runtimeType == runtimeType &&
+            other is _$_LoginPageState &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(isLoading));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LoginPageStateCopyWith<_$_LoginPageState> get copyWith =>
+      __$$_LoginPageStateCopyWithImpl<_$_LoginPageState>(this, _$identity);
 }
 
 abstract class _LoginPageState implements LoginPageState {
-  const factory _LoginPageState() = _$_LoginPageState;
+  const factory _LoginPageState({final bool isLoading}) = _$_LoginPageState;
+
+  @override
+  bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LoginPageStateCopyWith<_$_LoginPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

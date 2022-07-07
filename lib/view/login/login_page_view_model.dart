@@ -14,7 +14,9 @@ final loginPageProvider =
 
 @freezed
 class LoginPageState with _$LoginPageState {
-  const factory LoginPageState() = _LoginPageState;
+  const factory LoginPageState({
+    @Default(false) bool isLoading,
+  }) = _LoginPageState;
 }
 
 class LoginPageProvider extends StateNotifier<LoginPageState> {
@@ -29,9 +31,12 @@ class LoginPageProvider extends StateNotifier<LoginPageState> {
     required String pass,
   }) async {
     try {
+      state = state.copyWith(isLoading: true);
       await _accountController.emailSignIn(email: email, pass: pass);
+      state = state.copyWith(isLoading: false);
       LogUtils.outputLog("ログイン成功");
     } on Exception catch (e) {
+      state = state.copyWith(isLoading: false);
       LogUtils.outputLog("ログイン失敗");
       // TODO: エラー処理
     }

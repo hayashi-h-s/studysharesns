@@ -72,13 +72,8 @@ class AccountRepository implements BaseAccountRepository {
   @override
   Future<UserCredential> emailSignIn(
       {required String email, required String pass}) async {
-    try {
-      return await _read(firebaseFirebaseAuthProvider)
-          .signInWithEmailAndPassword(email: email, password: pass);
-    } catch (e) {
-      LogUtils.outputLog("emailSignIn失敗 -> $e ");
-      throw e.toString();
-    }
+    return await _read(firebaseFirebaseAuthProvider)
+        .signInWithEmailAndPassword(email: email, password: pass);
   }
 
   @override

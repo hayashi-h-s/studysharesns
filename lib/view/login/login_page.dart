@@ -17,6 +17,7 @@ class LoginPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginPageViewModel = ref.watch(loginPageProvider.notifier);
+    final loginPageSate = ref.watch(loginPageProvider);
 
     ref.listen<Account?>(accountController, (oldAccount, loginAccount) {
       if (loginAccount != null) {
@@ -29,78 +30,88 @@ class LoginPage extends HookConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-          body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
+        body: Stack(
+          children: [
+            if (loginPageSate.isLoading)
+              const Center(child: CircularProgressIndicator()),
+            SingleChildScrollView(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "エンジニア用SNS(仮)",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: SizedBox(
+                          width: 300,
+                          child: TextField(
+                            controller: emailController,
+                            decoration:
+                                const InputDecoration(hintText: "メールアドレス"),
+                          )),
+                    ),
+                    SizedBox(
+                        width: 300,
+                        child: TextField(
+                          controller: passController,
+                          decoration: InputDecoration(hintText: "パスワード"),
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    RichText(
+                        text: TextSpan(
+                            style: const TextStyle(color: Colors.black),
+                            children: [
+                          const TextSpan(text: "アカウントを作成していない方は"),
+                          TextSpan(
+                              text: "こちら",
+                              style: const TextStyle(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CreateAccountPage(),
+                                      ));
+                                })
+                        ])),
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    ElevatedButton(
+                        onPressed: () async {
+                          if (emailController.text.isNotEmpty &&
+                              passController.text.isNotEmpty) {
+                            loginPageViewModel.onPressedLoginButton(
+                                email: emailController.text,
+                                pass: passController.text);
+                          }
+                        },
+                        child: const Text("emailログイン")),
+                    ElevatedButton(
+                        onPressed: () async {
+                          final account = await ref
+                              .read(accountRepositoryProvider)
+                              .getUser(uid: "OWBCIl1wLmZdoKtAFtIIqq51Qnt2");
+                          ref.read(accountController.notifier).state = account;
+                        },
+                        child: const Text("テストユーザーでログイン")),
+                  ],
+                ),
               ),
-              const Text(
-                "エンジニア用SNS(仮)",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SizedBox(
-                    width: 300,
-                    child: TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(hintText: "メールアドレス"),
-                    )),
-              ),
-              SizedBox(
-                  width: 300,
-                  child: TextField(
-                    controller: passController,
-                    decoration: InputDecoration(hintText: "パスワード"),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              RichText(
-                  text: TextSpan(
-                      style: const TextStyle(color: Colors.black),
-                      children: [
-                    const TextSpan(text: "アカウントを作成していない方は"),
-                    TextSpan(
-                        text: "こちら",
-                        style: const TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CreateAccountPage(),
-                                ));
-                          })
-                  ])),
-              const SizedBox(
-                height: 70,
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (emailController.text.isNotEmpty &&
-                        passController.text.isNotEmpty) {
-                      loginPageViewModel.onPressedLoginButton(
-                          email: emailController.text,
-                          pass: passController.text);
-                    }
-                  },
-                  child: const Text("emailログイン")),
-              ElevatedButton(
-                  onPressed: () async {
-                    final account = await ref
-                        .read(accountRepositoryProvider)
-                        .getUser(uid: "OWBCIl1wLmZdoKtAFtIIqq51Qnt2");
-                    ref.read(accountController.notifier).state = account;
-                  },
-                  child: const Text("テストユーザーでログイン")),
-            ],
-          ),
+            ),
+          ],
         ),
-      )),
+      ),
     );
   }
 }
