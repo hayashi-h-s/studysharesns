@@ -6,7 +6,6 @@ import 'package:studysharesns/repository/post_repository.dart';
 import '../../materials/item_repository.dart';
 import '../../model/account/account.dart';
 import '../../model/post/post.dart';
-import '../../utils/log_util.dart';
 
 part 'post_list_controller.freezed.dart';
 
@@ -60,17 +59,12 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
     required String content,
     required Account account,
   }) async {
-    try {
-      final post = Post(
-        content: content,
-        postAccountId: account.id as String,
-        createdAt: DateTime.now(),
-      );
-      await _read(postRepositoryProvider).createPost(post: post);
-      await _read(postRepositoryProvider).createMyPost(post: post);
-    } on Exception catch (e) {
-      LogUtils.outputLog("ログイン失敗");
-      // TODO: エラー処理
-    }
+    final post = Post(
+      content: content,
+      postAccountId: account.id as String,
+      createdAt: DateTime.now(),
+    );
+    await _read(postRepositoryProvider).createPost(post: post);
+    await _read(postRepositoryProvider).createMyPost(post: post);
   }
 }

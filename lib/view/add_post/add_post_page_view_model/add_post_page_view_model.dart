@@ -16,6 +16,7 @@ final addPostPageProvider =
 class AddPostPageState with _$AddPostPageState {
   const factory AddPostPageState({
     @Default(false) bool isPosted,
+    @Default(false) bool isLoading,
   }) = _AddPostPageState;
 }
 
@@ -31,9 +32,12 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
     required Account account,
   }) async {
     try {
+      state = state.copyWith(isLoading: true);
       await _postController.addPost(content: content, account: account);
+      state = state.copyWith(isLoading: false);
       state = state.copyWith(isPosted: true);
     } catch (e) {
+      state = state.copyWith(isLoading: false);
       LogUtils.outputLog("onPressedPostButton 失敗 -> $e");
     }
   }

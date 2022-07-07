@@ -29,28 +29,18 @@ class PostRepository implements BasePostRepository {
   Future<void> createPost({
     required Post post,
   }) async {
-    try {
-      await _read(firebaseFirestoreProvider)
-          .collection('posts')
-          .add(post.toDocument());
-    } catch (e) {
-      LogUtils.outputLog("createPost -> 失敗 $e");
-      throw e.toString();
-    }
+    await _read(firebaseFirestoreProvider)
+        .collection('posts')
+        .add(post.toDocument());
   }
 
   @override
   Future<void> createMyPost({required Post post}) async {
-    try {
-      await _read(firebaseFirestoreProvider)
-          .collection('users')
-          .doc(post.postAccountId)
-          .collection('my_posts')
-          .add(post.toDocument());
-    } catch (e) {
-      LogUtils.outputLog("createPost -> 失敗 $e");
-      throw e.toString();
-    }
+    await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(post.postAccountId)
+        .collection('my_posts')
+        .add(post.toDocument());
   }
 
   @override
