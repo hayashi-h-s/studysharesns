@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EditAccountPageState {
   bool get isUpdated => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditAccountPageStateCopyWith<EditAccountPageState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $EditAccountPageStateCopyWith<$Res> {
   factory $EditAccountPageStateCopyWith(EditAccountPageState value,
           $Res Function(EditAccountPageState) then) =
       _$EditAccountPageStateCopyWithImpl<$Res>;
-  $Res call({bool isUpdated});
+  $Res call({bool isUpdated, bool isLoading});
 }
 
 /// @nodoc
@@ -43,11 +44,16 @@ class _$EditAccountPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isUpdated = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       isUpdated: isUpdated == freezed
           ? _value.isUpdated
           : isUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -60,7 +66,7 @@ abstract class _$$_EditAccountPageStateCopyWith<$Res>
           $Res Function(_$_EditAccountPageState) then) =
       __$$_EditAccountPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isUpdated});
+  $Res call({bool isUpdated, bool isLoading});
 }
 
 /// @nodoc
@@ -77,11 +83,16 @@ class __$$_EditAccountPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isUpdated = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_$_EditAccountPageState(
       isUpdated: isUpdated == freezed
           ? _value.isUpdated
           : isUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -90,15 +101,19 @@ class __$$_EditAccountPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_EditAccountPageState implements _EditAccountPageState {
-  const _$_EditAccountPageState({this.isUpdated = false});
+  const _$_EditAccountPageState(
+      {this.isUpdated = false, this.isLoading = false});
 
   @override
   @JsonKey()
   final bool isUpdated;
+  @override
+  @JsonKey()
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'EditAccountPageState(isUpdated: $isUpdated)';
+    return 'EditAccountPageState(isUpdated: $isUpdated, isLoading: $isLoading)';
   }
 
   @override
@@ -106,12 +121,15 @@ class _$_EditAccountPageState implements _EditAccountPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EditAccountPageState &&
-            const DeepCollectionEquality().equals(other.isUpdated, isUpdated));
+            const DeepCollectionEquality().equals(other.isUpdated, isUpdated) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isUpdated));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isUpdated),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -121,11 +139,13 @@ class _$_EditAccountPageState implements _EditAccountPageState {
 }
 
 abstract class _EditAccountPageState implements EditAccountPageState {
-  const factory _EditAccountPageState({final bool isUpdated}) =
-      _$_EditAccountPageState;
+  const factory _EditAccountPageState(
+      {final bool isUpdated, final bool isLoading}) = _$_EditAccountPageState;
 
   @override
   bool get isUpdated => throw _privateConstructorUsedError;
+  @override
+  bool get isLoading => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_EditAccountPageStateCopyWith<_$_EditAccountPageState> get copyWith =>

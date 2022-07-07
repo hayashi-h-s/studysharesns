@@ -63,32 +63,17 @@ class AccountController extends StateNotifier<Account?> {
     required File file,
     required String uid,
   }) async {
-    try {
-      _read(accountRepositoryProvider).uploadAccountImage(file: file, uid: uid);
-    } on Exception catch (e) {
-      LogUtils.outputLog("uploadAccountImage失敗 $e");
-      // TODO: エラー処理
-    }
+    _read(accountRepositoryProvider).uploadAccountImage(file: file, uid: uid);
   }
 
   Future<void> updateAccount({required Account account}) async {
-    try {
-      await _read(accountRepositoryProvider).updateAccount(account: account);
-      state = account;
-      LogUtils.outputLog("updateAccount成功");
-    } on Exception catch (e) {
-      LogUtils.outputLog("updateAccount失敗 $e");
-      // TODO: エラー処理
-    }
+    await _read(accountRepositoryProvider).updateAccount(account: account);
+    state = account;
+    LogUtils.outputLog("updateAccount成功");
   }
 
   Future<String?> getAccountImagePath({required String uid}) async {
-    try {
-      return await _read(accountRepositoryProvider).getAccountImage(uid: uid);
-    } on Exception catch (e) {
-      LogUtils.outputLog("アカウント画像取得失敗 $e");
-      return null;
-    }
+    return await _read(accountRepositoryProvider).getAccountImage(uid: uid);
   }
 
   Future<void> signOut() async {

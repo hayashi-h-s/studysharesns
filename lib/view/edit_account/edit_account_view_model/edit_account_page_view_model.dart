@@ -21,6 +21,7 @@ final editAccountPageProvider =
 class EditAccountPageState with _$EditAccountPageState {
   const factory EditAccountPageState({
     @Default(false) bool isUpdated,
+    @Default(false) bool isLoading,
   }) = _EditAccountPageState;
 }
 
@@ -34,6 +35,7 @@ class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
   Future<void> onPressedUpdateAccountButton(
       {required Account account, File? imageFile}) async {
     try {
+      state = state.copyWith(isLoading: true);
       if (imageFile != null) {
         await _accountController.uploadAccountImage(
             file: imageFile, uid: account.id as String);
@@ -42,10 +44,12 @@ class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
         account = account.copyWith(imagePath: imagePath!);
       }
       await _accountController.updateAccount(account: account);
+      state = state.copyWith(isLoading: false);
       state = state.copyWith(isUpdated: true);
       LogUtils.outputLog("アカウント編集成功");
     } on Exception catch (e) {
-      LogUtils.outputLog("アカウント作成失敗");
+      state = state.copyWith(isLoading: false);
+      LogUtils.outputLog("アカウント作成失敗 $e");
       // TODO: エラー処理
     }
   }
