@@ -39,21 +39,17 @@ class AccountRepository implements BaseAccountRepository {
   Future<void> createAccount({
     required Account account,
   }) async {
-    try {
-      await _read(firebaseFirestoreProvider)
-          .collection('users')
-          .doc(account.id)
-          .set({
-        "name": account.name,
-        "userId": account.userId,
-        "selfIntroduction": account.selfIntroduction,
-        "imagePath": account.imagePath,
-        "createdAt": Timestamp.now(),
-        "updatedAt": Timestamp.now(),
-      });
-    } catch (e) {
-      throw e.toString();
-    }
+    await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(account.id)
+        .set({
+      "name": account.name,
+      "userId": account.userId,
+      "selfIntroduction": account.selfIntroduction,
+      "imagePath": account.imagePath,
+      "createdAt": Timestamp.now(),
+      "updatedAt": Timestamp.now(),
+    });
   }
 
   @override
@@ -61,12 +57,8 @@ class AccountRepository implements BaseAccountRepository {
     required String email,
     required String pass,
   }) async {
-    try {
-      return await _read(firebaseFirebaseAuthProvider)
-          .createUserWithEmailAndPassword(email: email, password: pass);
-    } catch (e) {
-      throw e.toString();
-    }
+    return await _read(firebaseFirebaseAuthProvider)
+        .createUserWithEmailAndPassword(email: email, password: pass);
   }
 
   @override
@@ -119,27 +111,17 @@ class AccountRepository implements BaseAccountRepository {
   @override
   Future<void> uploadAccountImage(
       {required File file, required String? uid}) async {
-    try {
-      await _read(firebaseFirebaseStorageProvider)
-          .ref()
-          .child("users/$uid")
-          .putFile(file);
-    } catch (e) {
-      LogUtils.outputLog("アカウント画像登録失敗");
-      throw e.toString();
-    }
+    await _read(firebaseFirebaseStorageProvider)
+        .ref()
+        .child("users/$uid")
+        .putFile(file);
   }
 
   @override
   Future<String> getAccountImage({required String? uid}) async {
-    try {
-      return await _read(firebaseFirebaseStorageProvider)
-          .ref("users/$uid")
-          .getDownloadURL();
-    } catch (e) {
-      LogUtils.outputLog("アカウント画像取得失敗");
-      throw e.toString();
-    }
+    return await _read(firebaseFirebaseStorageProvider)
+        .ref("users/$uid")
+        .getDownloadURL();
   }
 
   @override
