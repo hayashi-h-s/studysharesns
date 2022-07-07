@@ -9,7 +9,7 @@ final postRepositoryProvider =
     Provider<PostRepository>((ref) => PostRepository(ref.read));
 
 abstract class BasePostRepository {
-  Future<String> createPost({required Post post});
+  Future<void> createPost({required Post post});
 
   Future<void> createMyPost({required Post post});
 
@@ -26,14 +26,13 @@ class PostRepository implements BasePostRepository {
   const PostRepository(this._read);
 
   @override
-  Future<String> createPost({
+  Future<void> createPost({
     required Post post,
   }) async {
     try {
-      final docRef = await _read(firebaseFirestoreProvider)
+      await _read(firebaseFirestoreProvider)
           .collection('posts')
           .add(post.toDocument());
-      return docRef.id;
     } catch (e) {
       LogUtils.outputLog("createPost -> 失敗 $e");
       throw e.toString();

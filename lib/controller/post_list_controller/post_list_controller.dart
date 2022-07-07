@@ -66,13 +66,8 @@ class PostListController extends StateNotifier<AsyncValue<List<Post>>> {
         postAccountId: account.id as String,
         createdAt: DateTime.now(),
       );
-      final postId = await _read(postRepositoryProvider).createPost(post: post);
+      await _read(postRepositoryProvider).createPost(post: post);
       await _read(postRepositoryProvider).createMyPost(post: post);
-      state.whenData(
-        (posts) => state = AsyncValue.data(
-          posts..add(post.copyWith(id: postId)),
-        ),
-      );
     } on Exception catch (e) {
       LogUtils.outputLog("ログイン失敗");
       // TODO: エラー処理
