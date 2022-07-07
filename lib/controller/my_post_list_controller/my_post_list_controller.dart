@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../model/account/account.dart';
 import '../../model/post/post.dart';
 import '../../provider/provider.dart';
-import '../../repository/post_repository.dart';
 import '../../utils/log_util.dart';
 
 part 'my_post_list_controller.freezed.dart';
@@ -33,11 +32,19 @@ class MyPostListController extends StateNotifier<AsyncValue<List<Post>>> {
   Future<void> getMyPosts({bool isRefreshing = false}) async {
     if (isRefreshing) state = const AsyncValue.loading();
     try {
-      final posts =
-          await _read(postRepositoryProvider).getMyPosts(account: account!);
-      if (mounted) {
-        state = AsyncValue.data(posts);
-      }
+      final snapshots = _read(firebaseFirestoreProvider)
+          .collection('users')
+          .doc(account?.id)
+          .collection('my_posts')
+          .snapshots();
+      snapshots.listen((snapshot) {
+        final posts =
+            snapshot.docs.map((doc) => Post.fromDocument(doc)).toList();
+        posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        if (mounted) {
+          state = AsyncValue.data(posts);
+        }
+      });
     } catch (e) {
       LogUtils.outputLog("getMyPosts失敗  $e");
       throw e.toString();
