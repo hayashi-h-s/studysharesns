@@ -10,7 +10,7 @@ class AddPostPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final contentController = TextEditingController();
-    final accountProvider = ref.watch(accountController);
+    final myAccount = ref.watch(accountController);
     final postPageViewModel = ref.watch(addPostPageProvider.notifier);
 
     ref.listen<AddPostPageState>(addPostPageProvider, (previous, next) {
@@ -39,12 +39,9 @@ class AddPostPage extends HookConsumerWidget {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () async {
-                if (contentController.text.isEmpty ||
-                    accountProvider == null ||
-                    accountProvider.id == null) return;
+                if (contentController.text.isEmpty || myAccount == null) return;
                 postPageViewModel.onPressedPostButton(
-                    content: contentController.text,
-                    postUserId: accountProvider.id as String);
+                    content: contentController.text, account: myAccount);
               },
               child: const Text("投稿"),
             )

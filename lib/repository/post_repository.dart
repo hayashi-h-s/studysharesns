@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:studysharesns/utils/log_util.dart';
 
 import '../materials/item_repository.dart';
+import '../model/account/account.dart';
 import '../model/post/post.dart';
 
 final postRepositoryProvider =
@@ -15,7 +16,7 @@ abstract class BasePostRepository {
 
   Future<List<Post>> getPosts();
 
-  Future<List<Post>> getMyPosts();
+  Future<List<Post>> getMyPosts({required Account account});
 
   Future<List<Post>> getPostsFromIds(List<String> ids);
 }
@@ -73,11 +74,11 @@ class PostRepository implements BasePostRepository {
   }
 
   @override
-  Future<List<Post>> getMyPosts() async {
+  Future<List<Post>> getMyPosts({required Account account}) async {
     try {
       final snapShot = await _read(firebaseFirestoreProvider)
           .collection('users')
-          .doc("OWBCIl1wLmZdoKtAFtIIqq51Qnt2")
+          .doc(account.id)
           .collection("my_posts")
           .orderBy("createdAt", descending: true)
           .get();
