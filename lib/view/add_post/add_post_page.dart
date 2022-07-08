@@ -21,6 +21,13 @@ class AddPostPage extends HookConsumerWidget {
       }
     });
 
+    ref.listen<AddPostPageState>(addPostPageProvider, (previous, next) {
+      if (next.isError) {
+        WidgetUtils.createAlertDialog(
+            context: context, title: "エラー", message: "通信状態の良い場所で再度お試しください。");
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -46,8 +53,9 @@ class AddPostPage extends HookConsumerWidget {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () async {
-                    if (contentController.text.isEmpty || myAccount == null)
+                    if (contentController.text.isEmpty || myAccount == null) {
                       return;
+                    }
                     postPageViewModel.onPressedPostButton(
                         content: contentController.text, account: myAccount);
                   },

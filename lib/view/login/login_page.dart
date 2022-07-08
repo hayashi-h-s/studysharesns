@@ -61,7 +61,7 @@ class LoginPage extends HookConsumerWidget {
                         width: 300,
                         child: TextField(
                           controller: passController,
-                          decoration: InputDecoration(hintText: "パスワード"),
+                          decoration: const InputDecoration(hintText: "パスワード"),
                         )),
                     const SizedBox(
                       height: 10,

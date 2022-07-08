@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddPostPageState {
   bool get isPosted => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddPostPageStateCopyWith<AddPostPageState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $AddPostPageStateCopyWith<$Res> {
   factory $AddPostPageStateCopyWith(
           AddPostPageState value, $Res Function(AddPostPageState) then) =
       _$AddPostPageStateCopyWithImpl<$Res>;
-  $Res call({bool isPosted, bool isLoading});
+  $Res call({bool isPosted, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -45,6 +46,7 @@ class _$AddPostPageStateCopyWithImpl<$Res>
   $Res call({
     Object? isPosted = freezed,
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_value.copyWith(
       isPosted: isPosted == freezed
@@ -54,6 +56,10 @@ class _$AddPostPageStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -66,7 +72,7 @@ abstract class _$$_AddPostPageStateCopyWith<$Res>
           _$_AddPostPageState value, $Res Function(_$_AddPostPageState) then) =
       __$$_AddPostPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isPosted, bool isLoading});
+  $Res call({bool isPosted, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_AddPostPageStateCopyWithImpl<$Res>
   $Res call({
     Object? isPosted = freezed,
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_$_AddPostPageState(
       isPosted: isPosted == freezed
@@ -94,6 +101,10 @@ class __$$_AddPostPageStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -101,7 +112,8 @@ class __$$_AddPostPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddPostPageState implements _AddPostPageState {
-  const _$_AddPostPageState({this.isPosted = false, this.isLoading = false});
+  const _$_AddPostPageState(
+      {this.isPosted = false, this.isLoading = false, this.isError = false});
 
   @override
   @JsonKey()
@@ -109,10 +121,13 @@ class _$_AddPostPageState implements _AddPostPageState {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isError;
 
   @override
   String toString() {
-    return 'AddPostPageState(isPosted: $isPosted, isLoading: $isLoading)';
+    return 'AddPostPageState(isPosted: $isPosted, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -121,14 +136,16 @@ class _$_AddPostPageState implements _AddPostPageState {
         (other.runtimeType == runtimeType &&
             other is _$_AddPostPageState &&
             const DeepCollectionEquality().equals(other.isPosted, isPosted) &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.isError, isError));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isPosted),
-      const DeepCollectionEquality().hash(isLoading));
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isError));
 
   @JsonKey(ignore: true)
   @override
@@ -137,13 +154,17 @@ class _$_AddPostPageState implements _AddPostPageState {
 }
 
 abstract class _AddPostPageState implements AddPostPageState {
-  const factory _AddPostPageState({final bool isPosted, final bool isLoading}) =
-      _$_AddPostPageState;
+  const factory _AddPostPageState(
+      {final bool isPosted,
+      final bool isLoading,
+      final bool isError}) = _$_AddPostPageState;
 
   @override
   bool get isPosted => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get isError => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_AddPostPageStateCopyWith<_$_AddPostPageState> get copyWith =>

@@ -17,6 +17,7 @@ class AddPostPageState with _$AddPostPageState {
   const factory AddPostPageState({
     @Default(false) bool isPosted,
     @Default(false) bool isLoading,
+    @Default(false) bool isError,
   }) = _AddPostPageState;
 }
 
@@ -38,6 +39,7 @@ class AddPostPageProvider extends StateNotifier<AddPostPageState> {
       state = state.copyWith(isPosted: true);
     } catch (e) {
       state = state.copyWith(isLoading: false);
+      state = state.copyWith(isError: true);
       LogUtils.outputLog("onPressedPostButton 失敗 -> $e");
     }
   }
