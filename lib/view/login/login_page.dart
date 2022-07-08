@@ -29,6 +29,17 @@ class LoginPage extends HookConsumerWidget {
       }
     });
 
+    ref.listen<LoginPageState>(loginPageProvider, (previous, next) {
+      if (next.isError) {
+        if (next.isError) {
+          WidgetUtils.createAlertDialog(
+              context: context,
+              title: "ログイン失敗",
+              message: "emailかパスワードが違います。\nもしくは通信状態の良い場所で再度お試しください。");
+        }
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         body: Stack(

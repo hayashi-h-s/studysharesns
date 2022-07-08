@@ -16,6 +16,7 @@ final loginPageProvider =
 class LoginPageState with _$LoginPageState {
   const factory LoginPageState({
     @Default(false) bool isLoading,
+    @Default(false) bool isError,
   }) = _LoginPageState;
 }
 
@@ -37,6 +38,7 @@ class LoginPageProvider extends StateNotifier<LoginPageState> {
       LogUtils.outputLog("ログイン成功");
     } on Exception catch (e) {
       state = state.copyWith(isLoading: false);
+      state = state.copyWith(isError: true);
       LogUtils.outputLog("ログイン失敗");
       // TODO: エラー処理
     }

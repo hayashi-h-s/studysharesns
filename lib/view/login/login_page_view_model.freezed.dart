@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LoginPageState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginPageStateCopyWith<LoginPageState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $LoginPageStateCopyWith<$Res> {
   factory $LoginPageStateCopyWith(
           LoginPageState value, $Res Function(LoginPageState) then) =
       _$LoginPageStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -43,11 +44,16 @@ class _$LoginPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -60,7 +66,7 @@ abstract class _$$_LoginPageStateCopyWith<$Res>
           _$_LoginPageState value, $Res Function(_$_LoginPageState) then) =
       __$$_LoginPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -77,11 +83,16 @@ class __$$_LoginPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_$_LoginPageState(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -90,15 +101,18 @@ class __$$_LoginPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginPageState implements _LoginPageState {
-  const _$_LoginPageState({this.isLoading = false});
+  const _$_LoginPageState({this.isLoading = false, this.isError = false});
 
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isError;
 
   @override
   String toString() {
-    return 'LoginPageState(isLoading: $isLoading)';
+    return 'LoginPageState(isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -106,12 +120,15 @@ class _$_LoginPageState implements _LoginPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoginPageState &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.isError, isError));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isLoading));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isError));
 
   @JsonKey(ignore: true)
   @override
@@ -120,10 +137,13 @@ class _$_LoginPageState implements _LoginPageState {
 }
 
 abstract class _LoginPageState implements LoginPageState {
-  const factory _LoginPageState({final bool isLoading}) = _$_LoginPageState;
+  const factory _LoginPageState({final bool isLoading, final bool isError}) =
+      _$_LoginPageState;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get isError => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LoginPageStateCopyWith<_$_LoginPageState> get copyWith =>
