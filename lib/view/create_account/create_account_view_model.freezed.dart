@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CreateAccountPageState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateAccountPageStateCopyWith<CreateAccountPageState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $CreateAccountPageStateCopyWith<$Res> {
   factory $CreateAccountPageStateCopyWith(CreateAccountPageState value,
           $Res Function(CreateAccountPageState) then) =
       _$CreateAccountPageStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -43,11 +44,16 @@ class _$CreateAccountPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -60,7 +66,7 @@ abstract class _$$_CreateAccountPageStateCopyWith<$Res>
           $Res Function(_$_CreateAccountPageState) then) =
       __$$_CreateAccountPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -78,11 +84,16 @@ class __$$_CreateAccountPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_$_CreateAccountPageState(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -91,15 +102,19 @@ class __$$_CreateAccountPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CreateAccountPageState implements _CreateAccountPageState {
-  const _$_CreateAccountPageState({this.isLoading = false});
+  const _$_CreateAccountPageState(
+      {this.isLoading = false, this.isError = false});
 
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isError;
 
   @override
   String toString() {
-    return 'CreateAccountPageState(isLoading: $isLoading)';
+    return 'CreateAccountPageState(isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -107,12 +122,15 @@ class _$_CreateAccountPageState implements _CreateAccountPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateAccountPageState &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.isError, isError));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isLoading));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isError));
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +140,13 @@ class _$_CreateAccountPageState implements _CreateAccountPageState {
 }
 
 abstract class _CreateAccountPageState implements CreateAccountPageState {
-  const factory _CreateAccountPageState({final bool isLoading}) =
-      _$_CreateAccountPageState;
+  const factory _CreateAccountPageState(
+      {final bool isLoading, final bool isError}) = _$_CreateAccountPageState;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get isError => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_CreateAccountPageStateCopyWith<_$_CreateAccountPageState> get copyWith =>

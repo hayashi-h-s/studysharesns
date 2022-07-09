@@ -35,6 +35,17 @@ class CreateAccountPage extends HookConsumerWidget {
       }
     });
 
+    ref.listen<CreateAccountPageState>(createAccountPageProvider,
+        (previous, next) {
+      if (next.isError) {
+        WidgetUtils.createAlertDialog(
+            context: context,
+            title: "エラー",
+            message: "通信状態の良い場所で再度お試しください。",
+            okBtnText: "OK");
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

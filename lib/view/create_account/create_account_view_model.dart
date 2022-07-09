@@ -18,6 +18,7 @@ final createAccountPageProvider =
 class CreateAccountPageState with _$CreateAccountPageState {
   const factory CreateAccountPageState({
     @Default(false) bool isLoading,
+    @Default(false) bool isError,
   }) = _CreateAccountPageState;
 }
 
@@ -36,6 +37,8 @@ class CreateAccountPageProvider extends StateNotifier<CreateAccountPageState> {
       required File imageFile,
       required String selfIntroduction}) async {
     try {
+      throw Exception("");
+
       state = state.copyWith(isLoading: true);
       await _accountController.createAccount(
           email: email,
@@ -48,6 +51,7 @@ class CreateAccountPageProvider extends StateNotifier<CreateAccountPageState> {
       LogUtils.outputLog("アカウント作成成功");
     } on Exception catch (e) {
       state = state.copyWith(isLoading: false);
+      state = state.copyWith(isError: true);
       LogUtils.outputLog("アカウント作成失敗 $e");
       // TODO: エラー処理
     }
