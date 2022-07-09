@@ -24,7 +24,10 @@ class AddPostPage extends HookConsumerWidget {
     ref.listen<AddPostPageState>(addPostPageProvider, (previous, next) {
       if (next.isError) {
         WidgetUtils.createAlertDialog(
-            context: context, title: "エラー", message: "通信状態の良い場所で再度お試しください。");
+            context: context,
+            title: "エラー",
+            message: "通信状態の良い場所で再度お試しください。",
+            okBtnText: "OK");
       }
     });
 

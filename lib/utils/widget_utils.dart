@@ -26,27 +26,26 @@ class WidgetUtils {
 
   static void createAlertDialog(
       {required BuildContext context,
-      @Default(null) String? title,
-      @Default(null) String? message,
+      @Default(null) final String? title,
+      required final String message,
       @Default(null) String? cancelBtnText,
-      @Default(null) String? okBtnText}) {
+      required final String okBtnText}) {
     showDialog(
       context: context,
       builder: (_) {
         return AlertDialog(
           title: title == null ? null : Text(title),
-          content: message == null ? null : Text(message),
+          content: Text(message),
           actions: <Widget>[
             if (cancelBtnText != null)
               TextButton(
                 child: Text(cancelBtnText),
                 onPressed: () => Navigator.pop(context),
               ),
-            if (okBtnText != null)
-              TextButton(
-                child: Text(okBtnText),
-                onPressed: () => Navigator.pop(context),
-              ),
+            TextButton(
+              child: Text(okBtnText),
+              onPressed: () => Navigator.pop(context),
+            ),
           ],
         );
       },
