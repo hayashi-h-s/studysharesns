@@ -37,8 +37,6 @@ class CreateAccountPageProvider extends StateNotifier<CreateAccountPageState> {
       required File imageFile,
       required String selfIntroduction}) async {
     try {
-      throw Exception("");
-
       state = state.copyWith(isLoading: true);
       await _accountController.createAccount(
           email: email,
