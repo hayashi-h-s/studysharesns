@@ -22,6 +22,7 @@ class EditAccountPageState with _$EditAccountPageState {
   const factory EditAccountPageState({
     @Default(false) bool isUpdated,
     @Default(false) bool isLoading,
+    @Default(false) bool isError,
   }) = _EditAccountPageState;
 }
 
@@ -49,6 +50,7 @@ class EditAccountPageProvider extends StateNotifier<EditAccountPageState> {
       LogUtils.outputLog("アカウント編集成功");
     } on Exception catch (e) {
       state = state.copyWith(isLoading: false);
+      state = state.copyWith(isError: true);
       LogUtils.outputLog("アカウント作成失敗 $e");
       // TODO: エラー処理
     }

@@ -43,6 +43,16 @@ class EditAccountPage extends HookConsumerWidget {
       },
     );
 
+    ref.listen<EditAccountPageState>(editAccountPageProvider, (previous, next) {
+      if (next.isError) {
+        WidgetUtils.createAlertDialog(
+            context: context,
+            title: "エラー",
+            message: "通信状態の良い場所で再度お試しください。",
+            okBtnText: "OK");
+      }
+    });
+
     final nameController = TextEditingController(text: myAccount?.name);
     final userIdController = TextEditingController(text: myAccount?.userId);
     final selfIntroductionController =

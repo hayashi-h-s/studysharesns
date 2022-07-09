@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditAccountPageState {
   bool get isUpdated => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditAccountPageStateCopyWith<EditAccountPageState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $EditAccountPageStateCopyWith<$Res> {
   factory $EditAccountPageStateCopyWith(EditAccountPageState value,
           $Res Function(EditAccountPageState) then) =
       _$EditAccountPageStateCopyWithImpl<$Res>;
-  $Res call({bool isUpdated, bool isLoading});
+  $Res call({bool isUpdated, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -45,6 +46,7 @@ class _$EditAccountPageStateCopyWithImpl<$Res>
   $Res call({
     Object? isUpdated = freezed,
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_value.copyWith(
       isUpdated: isUpdated == freezed
@@ -54,6 +56,10 @@ class _$EditAccountPageStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -66,7 +72,7 @@ abstract class _$$_EditAccountPageStateCopyWith<$Res>
           $Res Function(_$_EditAccountPageState) then) =
       __$$_EditAccountPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isUpdated, bool isLoading});
+  $Res call({bool isUpdated, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_EditAccountPageStateCopyWithImpl<$Res>
   $Res call({
     Object? isUpdated = freezed,
     Object? isLoading = freezed,
+    Object? isError = freezed,
   }) {
     return _then(_$_EditAccountPageState(
       isUpdated: isUpdated == freezed
@@ -94,6 +101,10 @@ class __$$_EditAccountPageStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isError: isError == freezed
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -102,7 +113,7 @@ class __$$_EditAccountPageStateCopyWithImpl<$Res>
 
 class _$_EditAccountPageState implements _EditAccountPageState {
   const _$_EditAccountPageState(
-      {this.isUpdated = false, this.isLoading = false});
+      {this.isUpdated = false, this.isLoading = false, this.isError = false});
 
   @override
   @JsonKey()
@@ -110,10 +121,13 @@ class _$_EditAccountPageState implements _EditAccountPageState {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isError;
 
   @override
   String toString() {
-    return 'EditAccountPageState(isUpdated: $isUpdated, isLoading: $isLoading)';
+    return 'EditAccountPageState(isUpdated: $isUpdated, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -122,14 +136,16 @@ class _$_EditAccountPageState implements _EditAccountPageState {
         (other.runtimeType == runtimeType &&
             other is _$_EditAccountPageState &&
             const DeepCollectionEquality().equals(other.isUpdated, isUpdated) &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.isError, isError));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isUpdated),
-      const DeepCollectionEquality().hash(isLoading));
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isError));
 
   @JsonKey(ignore: true)
   @override
@@ -140,12 +156,16 @@ class _$_EditAccountPageState implements _EditAccountPageState {
 
 abstract class _EditAccountPageState implements EditAccountPageState {
   const factory _EditAccountPageState(
-      {final bool isUpdated, final bool isLoading}) = _$_EditAccountPageState;
+      {final bool isUpdated,
+      final bool isLoading,
+      final bool isError}) = _$_EditAccountPageState;
 
   @override
   bool get isUpdated => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get isError => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_EditAccountPageStateCopyWith<_$_EditAccountPageState> get copyWith =>
