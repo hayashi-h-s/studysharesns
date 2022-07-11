@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:studysharesns/controller/my_post_list_controller/my_post_list_controller.dart';
 import 'package:studysharesns/provider/provider.dart';
 
 import '../../model/post/post.dart';
 import '../edit_account/edit_account_page.dart';
+import '../post_card/post_card.dart';
 
 class MyAccountPage extends HookConsumerWidget {
   const MyAccountPage({Key? key}) : super(key: key);
@@ -140,46 +140,8 @@ class MyAccountPage extends HookConsumerWidget {
                                         ),
                                 ),
                                 padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                        radius: 22,
-                                        foregroundImage:
-                                            NetworkImage(myAccount.imagePath)),
-                                    Expanded(
-                                      child: Container(
-                                        padding: const EdgeInsets.only(left: 8),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(myAccount.name),
-                                                    Text("@${myAccount.userId}",
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.grey)),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  DateFormat("M/d/yy")
-                                                      .format(post.createdAt),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(post.content),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child: PostCard(
+                                    postAccount: myAccount, post: post),
                               );
                             },
                           ),

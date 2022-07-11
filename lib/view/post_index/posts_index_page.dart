@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import '../../controller/account_list_controller/account_list_controller.dart';
 import '../../controller/post_list_controller/post_list_controller.dart';
 import '../../model/account/account.dart';
+import '../post_card/post_card.dart';
 
 class PostIndexPage extends HookConsumerWidget {
   const PostIndexPage({Key? key}) : super(key: key);
@@ -74,56 +74,7 @@ class PostIndexPage extends HookConsumerWidget {
                                   ),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 22,
-                                foregroundImage:
-                                    NetworkImage(postAccount.imagePath),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 120,
-                                                  child: Text(postAccount.name,
-                                                      overflow: TextOverflow
-                                                          .ellipsis),
-                                                ),
-                                                SizedBox(
-                                                  width: 120,
-                                                  child: Text(
-                                                    "@${postAccount.userId}",
-                                                    style: const TextStyle(
-                                                        color: Colors.grey),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              DateFormat("M/d/yy")
-                                                  .format(post!.createdAt),
-                                            ),
-                                          ]),
-                                      Text(post.content),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: PostCard(postAccount: postAccount, post: post),
                         );
                       }
                     },
