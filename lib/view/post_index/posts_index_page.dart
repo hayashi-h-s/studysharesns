@@ -94,10 +94,22 @@ class PostIndexPage extends HookConsumerWidget {
                                           children: [
                                             Row(
                                               children: [
-                                                Text(postAccount.name),
-                                                Text("@${postAccount.userId}",
+                                                SizedBox(
+                                                  width: 120,
+                                                  child: Text(postAccount.name,
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                ),
+                                                SizedBox(
+                                                  width: 120,
+                                                  child: Text(
+                                                    "@${postAccount.userId}",
                                                     style: const TextStyle(
-                                                        color: Colors.grey)),
+                                                        color: Colors.grey),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                             Text(

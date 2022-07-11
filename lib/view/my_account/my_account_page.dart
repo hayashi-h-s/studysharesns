@@ -46,13 +46,22 @@ class MyAccountPage extends HookConsumerWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            myAccount.name,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          SizedBox(
+                                            width: 200,
+                                            child: Text(myAccount.name,
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                overflow:
+                                                    TextOverflow.ellipsis),
                                           ),
-                                          Text("@${myAccount.userId}")
+                                          SizedBox(
+                                            width: 220,
+                                            child: Text("@${myAccount.userId}",
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          )
                                         ],
                                       )
                                     ],
