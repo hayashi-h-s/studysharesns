@@ -57,14 +57,17 @@ class MyAccountPage extends HookConsumerWidget {
                                                       maxLines: 1,
                                                       myAccount.name,
                                                       style: const TextStyle(
-                                                          color: Colors.grey),
+                                                        color: Colors.grey,
+                                                      ),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
-                                                    Text("@${myAccount.userId}",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis)
+                                                    Text(
+                                                      "@${myAccount.userId}",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    )
                                                   ],
                                                 ),
                                               ),
