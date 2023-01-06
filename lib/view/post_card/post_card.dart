@@ -29,29 +29,21 @@ class PostCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 120,
-                            child: Text(postAccount.name,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                          SizedBox(
-                            width: 120,
-                            child: Text(
-                              "@${postAccount.userId}",
-                              style: const TextStyle(color: Colors.grey),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        maxLines: 1,
+                        "${postAccount.name}@${postAccount.userId}",
+                        style: const TextStyle(color: Colors.grey),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        DateFormat("M/d/yy").format(post!.createdAt),
-                      ),
-                    ]),
+                    ),
+                    Text(
+                      DateFormat("M/d/yy").format(post!.createdAt),
+                    ),
+                  ],
+                ),
                 Text(post!.content),
               ],
             ),
