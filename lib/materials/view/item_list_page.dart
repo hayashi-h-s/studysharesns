@@ -80,7 +80,7 @@ class ItemListPage extends HookConsumerWidget {
             const Center(child: CircularProgressIndicator()), //ローディング時
         error: (error, _) => Text(error.toString()), //エラー時
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat, // フローティングボタンの位置を変更
       floatingActionButton: FloatingActionButton(
         // タスク作成ダイアログを表示する（追加）
         onPressed: () => AddItemDialog.show(context, Item.empty()),

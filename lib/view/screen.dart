@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studysharesns/view/post_index/posts_index_page.dart';
+import 'package:studysharesns/view/sample_list/sample_list_page.dart';
 
-import '../materials/view/item_list_page.dart';
 import 'add_post/add_post_page.dart';
 import 'my_account/my_account_page.dart';
 
@@ -16,7 +16,7 @@ class _ScreenState extends State<Screen> {
   int selectedIndex = 0;
   List<Widget> pageList = [
     const PostIndexPage(),
-    const ItemListPage(),
+    const SampleListPage(),
     const MyAccountPage(),
   ];
 
@@ -28,8 +28,8 @@ class _ScreenState extends State<Screen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "投稿"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
-            label: "TODO",
+            icon: Icon(Icons.list),
+            label: "サンプル",
           ),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "その他"),
         ],
