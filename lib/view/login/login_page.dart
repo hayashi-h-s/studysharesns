@@ -5,6 +5,7 @@ import 'package:studysharesns/view/screen.dart';
 
 import '../../model/account/account.dart';
 import '../../provider/provider.dart';
+import '../../utils/StringConstant.dart';
 import '../../utils/widget_utils.dart';
 import '../create_account/create_account_page.dart';
 import 'login_page_view_model.dart';
@@ -33,7 +34,7 @@ class LoginPage extends HookConsumerWidget {
       if (next.isError) {
         WidgetUtils.createAlertDialog(
             context: context,
-            title: "ログイン失敗",
+            title: StringConstant.loginFailure,
             message: "emailかパスワードが違います。\nもしくは通信状態の良い場所で再度お試しください。",
             okBtnText: "OK");
       }
@@ -52,10 +53,10 @@ class LoginPage extends HookConsumerWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text(
-                      "エンジニア用SNS(仮)",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    Text(
+                      StringConstant.appTitle,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -63,15 +64,16 @@ class LoginPage extends HookConsumerWidget {
                           width: 300,
                           child: TextField(
                             controller: emailController,
-                            decoration:
-                                const InputDecoration(hintText: "メールアドレス"),
+                            decoration: InputDecoration(
+                                hintText: StringConstant.mailAddress),
                           )),
                     ),
                     SizedBox(
                         width: 300,
                         child: TextField(
                           controller: passController,
-                          decoration: const InputDecoration(hintText: "パスワード"),
+                          decoration: InputDecoration(
+                              hintText: StringConstant.passWord),
                         )),
                     const SizedBox(
                       height: 10,
