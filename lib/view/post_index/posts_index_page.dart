@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../controller/account_list_controller/account_list_controller.dart';
 import '../../controller/post_list_controller/post_list_controller.dart';
 import '../../model/account/account.dart';
-import '../post_card/post_card.dart';
+import '../widget/post_card/post_card.dart';
 
 class PostIndexPage extends HookConsumerWidget {
   const PostIndexPage({Key? key}) : super(key: key);

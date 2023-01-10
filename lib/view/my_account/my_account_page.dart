@@ -4,8 +4,7 @@ import 'package:studysharesns/controller/my_post_list_controller/my_post_list_co
 import 'package:studysharesns/provider/provider.dart';
 
 import '../../model/post/post.dart';
-import '../edit_account/edit_account_page.dart';
-import '../post_card/post_card.dart';
+import '../widget/post_card/post_card.dart';
 
 class MyAccountPage extends HookConsumerWidget {
   const MyAccountPage({Key? key}) : super(key: key);
@@ -72,15 +71,7 @@ class MyAccountPage extends HookConsumerWidget {
                                                 ),
                                               ),
                                               OutlinedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const EditAccountPage(),
-                                                    ),
-                                                  );
-                                                },
+                                                onPressed: () {},
                                                 child: const Text(
                                                   "編集",
                                                   style: TextStyle(
