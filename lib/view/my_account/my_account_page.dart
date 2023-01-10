@@ -25,62 +25,75 @@ class MyAccountPage extends HookConsumerWidget {
                     children: [
                       SizedBox(
                         height: 200,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 32,
-                                        foregroundImage:
-                                            NetworkImage(myAccount.imagePath),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Column(
+                                  CircleAvatar(
+                                    radius: 32,
+                                    foregroundImage:
+                                        NetworkImage(myAccount.imagePath),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            width: 200,
-                                            child: Text(myAccount.name,
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                overflow:
-                                                    TextOverflow.ellipsis),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Flexible(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      maxLines: 1,
+                                                      myAccount.name,
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
+                                                      "@${myAccount.userId}",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              OutlinedButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const EditAccountPage(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                  "編集",
+                                                  style: TextStyle(
+                                                      color: Colors.blue),
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          SizedBox(
-                                            width: 220,
-                                            child: Text("@${myAccount.userId}",
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          )
+                                          // Text(post!.content),
                                         ],
-                                      )
-                                    ],
-                                  ),
-                                  OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const EditAccountPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      "編集",
-                                      style: TextStyle(color: Colors.blue),
+                                      ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               const SizedBox(height: 16),
