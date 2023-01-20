@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../model/sampleListInterface.dart';
 import 'battery_data.dart';
 import 'battery_icon.dart';
 import 'battery_notifier.dart';
@@ -10,7 +11,7 @@ final batteryProvider =
   return BatteryNotifier();
 });
 
-class BatteryLevelScreen extends ConsumerWidget {
+class BatteryLevelScreen extends ConsumerWidget implements SampleListInterface {
   const BatteryLevelScreen({Key? key}) : super(key: key);
 
   @override

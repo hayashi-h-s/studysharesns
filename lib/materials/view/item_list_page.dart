@@ -4,10 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import '../../model/sampleListInterface.dart';
 import '../model/item_model.dart';
 import '../view_model/item_list_view_model.dart';
 
-class ItemListPage extends HookConsumerWidget {
+class ItemListPage extends HookConsumerWidget implements SampleListInterface {
   const ItemListPage({Key? key}) : super(key: key);
 
   @override
